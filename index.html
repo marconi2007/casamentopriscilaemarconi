@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento de Marconi e Priscila</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body class="cover-active">
+    <section id="cover" class="pre-cover">
+        <div class="cover-actions" aria-label="Acessos rápidos do casamento">
+            <button class="cover-button cover-button-wide" type="button" data-cover-tab="rsvp">
+                Confirmação de Presença
+            </button>
+            <button class="cover-button" type="button" data-cover-tab="location">
+                Ver no Maps
+            </button>
+            <button class="cover-button" type="button" data-cover-tab="gifts">
+                Lista de Presente
+            </button>
+        </div>
+    </section>
+
+    <header>
+        <h1>Marconi & Priscila</h1>
+        <p>Nosso Grande Dia - 05 de setembro de 2026</p>
+    </header>
+
+    <section id="hero" class="fade-in">
+        <div class="hero-content">
+            <h2>Bem-vindos ao Nosso Casamento!</h2>
+            <p>Celebremos juntos este momento especial.</p>
+        </div>
+    </section>
+
+    <section id="about" class="fade-in">
+        <h2>Sobre Nós</h2>
+        <p>Uma história de amor que começou há muitos anos...</p>
+    </section>
+
+    <section id="tabs" class="fade-in">
+        <nav class="tab-menu" aria-label="Informações do casamento">
+            <button class="tab-button active" type="button" data-tab="rsvp">Confirmação de presença</button>
+            <button class="tab-button" type="button" data-tab="location">Ver no Maps</button>
+            <button class="tab-button" type="button" data-tab="gifts">Lista de presente</button>
+        </nav>
+
+        <div id="rsvp" class="tab-panel active">
+            <h2>Confirme Sua Presença</h2>
+            <form id="rsvp-form">
+                <input type="text" id="name" placeholder="Seu Nome" required>
+                <input type="email" id="email" placeholder="Seu Email" required>
+                <select id="attending">
+                    <option value="yes">Sim, vou comparecer</option>
+                    <option value="no">Não, não vou poder</option>
+                </select>
+                <input type="number" id="guests" placeholder="Número de Convidados" min="1" max="10">
+                <button type="submit">Enviar</button>
+            </form>
+            <div id="rsvp-message"></div>
+        </div>
+
+        <div id="gifts" class="tab-panel">
+            <h2>Lista de Presente</h2>
+            <div id="gift-list">
+                <!-- Lista de presente será carregada aqui -->
+            </div>
+        </div>
+
+        <div id="location" class="tab-panel">
+            <h2>Localização</h2>
+            <p class="location-address">Rua Taquari, 96 - Renascença, Belo Horizonte</p>
+            <div class="map-container">
+                <iframe
+                    title="Mapa da localização do casamento"
+                    src="https://www.google.com/maps?q=Rua%20Taquari%2C%2096%20-%20Renascen%C3%A7a%2C%20Belo%20Horizonte&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <div id="rsvp-popup" class="popup-overlay" aria-hidden="true">
+        <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+            <button class="popup-close" type="button" aria-label="Fechar mensagem">&times;</button>
+            <span class="popup-icon">♥</span>
+            <h2 id="popup-title">Presença confirmada!</h2>
+            <p id="popup-message">
+                Que alegria ter você com a gente nesse dia tão especial.
+            </p>
+            <button class="popup-button" type="button">Fechar</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Marconi & Priscila. Feito com amor.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

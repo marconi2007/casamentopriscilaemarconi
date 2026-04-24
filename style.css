@@ -1,0 +1,481 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #3f3215;
+    background:
+        radial-gradient(circle at top left, rgba(212, 175, 55, 0.22), transparent 34rem),
+        linear-gradient(to bottom, #ffffff, #fff8df);
+    overflow-x: hidden;
+}
+
+body.cover-active {
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #fff8df, #d4af37, #fffdf4);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    box-shadow: 0 4px 18px rgba(132, 99, 10, 0.22);
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(92, 67, 0, 0.35);
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #fffdf4;
+    text-shadow: 0 1px 6px rgba(92, 67, 0, 0.35);
+}
+
+section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pre-cover {
+    min-height: 100vh;
+    max-width: none;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    overflow: hidden;
+    background:
+        linear-gradient(rgba(28, 27, 22, 0.72), rgba(28, 27, 22, 0.72)),
+        url('nos.jpg') center center/cover no-repeat,
+        radial-gradient(circle at 52% 28%, rgba(255, 244, 189, 0.38), transparent 7rem),
+        radial-gradient(circle at 64% 88%, rgba(176, 119, 14, 0.34), transparent 9rem),
+        linear-gradient(135deg, #272620, #4a4638);
+    transition: opacity 0.55s ease, visibility 0.55s ease, transform 0.55s ease;
+}
+
+.pre-cover.cover-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.02);
+    pointer-events: none;
+}
+
+.pre-cover.cover-dismissed {
+    display: none;
+}
+
+.pre-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at center, transparent 0 18%, rgba(0, 0, 0, 0.28) 72%),
+        linear-gradient(90deg, transparent 0 39%, rgba(255, 235, 169, 0.18) 39% 52%, transparent 52%);
+    pointer-events: none;
+}
+
+.pre-cover::after {
+    content: '';
+    position: absolute;
+    right: 8%;
+    bottom: -8rem;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(170, 108, 7, 0.42), transparent 68%);
+    filter: blur(6px);
+}
+
+.cover-actions {
+    width: min(100%, 24rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.7rem;
+    position: relative;
+    z-index: 1;
+    animation: coverFloatIn 1s ease-out both;
+}
+
+.cover-button {
+    width: min(100%, 13.5rem);
+    min-height: 3rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 239, 176, 0.72);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 800;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.42);
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 34%, rgba(255, 242, 187, 0.28) 34% 54%, rgba(138, 103, 0, 0.18) 54% 100%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(180, 142, 34, 0.42));
+    box-shadow:
+        0 0 22px rgba(212, 175, 55, 0.28),
+        inset 0 1px 1px rgba(255, 255, 255, 0.32);
+    backdrop-filter: blur(8px);
+}
+
+.cover-button-wide {
+    width: min(100%, 18rem);
+}
+
+.cover-button:hover {
+    box-shadow:
+        0 0 34px rgba(255, 229, 138, 0.48),
+        inset 0 1px 1px rgba(255, 255, 255, 0.44);
+}
+
+#hero {
+    background: url('hero-bg.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(80, 58, 0, 0.52), rgba(255, 248, 223, 0.22));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h2 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 2s ease-out;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    animation: fadeInUp 2s ease-out 0.5s both;
+}
+
+#about, #tabs, #rsvp, #gifts, #location {
+    text-align: center;
+}
+
+.tab-menu {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.tab-button {
+    background: linear-gradient(135deg, #ffffff, #fff5cf);
+    color: #8a6700;
+    border: 2px solid #d4af37;
+    border-radius: 999px;
+    font-weight: bold;
+    padding: 0.9rem 1.3rem;
+    box-shadow: 0 8px 18px rgba(132, 99, 10, 0.14);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0) scale(1);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, color 0.28s ease;
+}
+
+.tab-button::before,
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.55s ease;
+}
+
+.tab-button:hover,
+.tab-button.active {
+    background: linear-gradient(135deg, #b98a05, #d4af37, #ffe58a);
+    color: white;
+    box-shadow: 0 14px 28px rgba(132, 99, 10, 0.3);
+    transform: translateY(-4px) scale(1.03);
+}
+
+.tab-button:hover::before,
+.tab-button.active::before,
+button:hover::before {
+    left: 130%;
+}
+
+.tab-panel {
+    display: none;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.38);
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(132, 99, 10, 0.16);
+    padding: 2rem;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+#rsvp form {
+    max-width: 500px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input, select, button {
+    padding: 0.75rem;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input,
+select {
+    background: #fffdf4;
+    color: #3f3215;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid rgba(212, 175, 55, 0.45);
+    border-color: #d4af37;
+}
+
+button {
+    background: linear-gradient(135deg, #b98a05, #d4af37, #ffe58a);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(132, 99, 10, 0.2);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0) scale(1);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, filter 0.28s ease;
+}
+
+button:hover {
+    box-shadow: 0 14px 30px rgba(132, 99, 10, 0.35);
+    filter: brightness(1.05);
+    transform: translateY(-4px) scale(1.03);
+}
+
+button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+#gift-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.gift-item {
+    background: #fffdf4;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    box-shadow: 0 8px 22px rgba(132, 99, 10, 0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gift-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 28px rgba(132, 99, 10, 0.2);
+}
+
+.location-address {
+    font-size: 1.1rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.map-container {
+    overflow: hidden;
+    border-radius: 14px;
+    border: 2px solid rgba(212, 175, 55, 0.45);
+    box-shadow: 0 10px 24px rgba(132, 99, 10, 0.16);
+}
+
+.map-container iframe {
+    display: block;
+    width: 100%;
+    min-height: 420px;
+    border: 0;
+}
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(28, 27, 22, 0.62);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.popup-card {
+    width: min(100%, 26rem);
+    padding: 2rem;
+    border: 1px solid rgba(212, 175, 55, 0.52);
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at top, rgba(255, 229, 138, 0.32), transparent 12rem),
+        #ffffff;
+    box-shadow: 0 24px 60px rgba(62, 46, 0, 0.35);
+    color: #3f3215;
+    text-align: center;
+    position: relative;
+    transform: translateY(18px) scale(0.96);
+    transition: transform 0.28s ease;
+}
+
+.popup-overlay.active .popup-card {
+    transform: translateY(0) scale(1);
+}
+
+.popup-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.popup-icon {
+    width: 3.2rem;
+    height: 3.2rem;
+    margin: 0 auto 1rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #b98a05, #d4af37, #ffe58a);
+    color: #ffffff;
+    font-size: 1.8rem;
+    box-shadow: 0 10px 24px rgba(132, 99, 10, 0.24);
+}
+
+.popup-card h2 {
+    margin-bottom: 0.8rem;
+    color: #8a6700;
+}
+
+.popup-card p {
+    margin-bottom: 1.4rem;
+    line-height: 1.7;
+}
+
+.popup-button {
+    min-width: 8rem;
+    border-radius: 999px;
+    font-weight: bold;
+}
+
+footer {
+    background: linear-gradient(135deg, #8a6700, #d4af37);
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Animações */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes coverFloatIn {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+    section {
+        padding: 2rem 1rem;
+    }
+    .tab-menu {
+        gap: 0.6rem;
+    }
+    .tab-button {
+        width: 100%;
+    }
+    .tab-panel {
+        padding: 1.25rem;
+    }
+    .map-container iframe {
+        min-height: 320px;
+    }
+    .pre-cover {
+        padding: 1.5rem;
+    }
+    .cover-actions {
+        gap: 1.35rem;
+    }
+    .cover-button,
+    .cover-button-wide {
+        width: min(100%, 18rem);
+    }
+}

@@ -1,0 +1,15 @@
+Olá, {{to_name}}!
+
+Recebemos com muito carinho a sua confirmação para o nosso casamento.
+Ter você fazendo parte desse dia tão especial deixa a nossa alegria ainda maior.
+
+Obrigado por caminhar conosco nesse momento. Estamos preparando tudo com muito amor e será uma felicidade enorme celebrar ao seu lado.
+
+Dados da confirmação:
+Nome: {{guest_name}}
+Presença: {{attending}}
+Convidados: {{guests}}
+Data: {{wedding_date}}
+
+Com carinho,
+{{couple_names}}

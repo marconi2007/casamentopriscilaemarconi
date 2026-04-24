@@ -1,0 +1,236 @@
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBscnBKFbjded9cS6Dg2Xzi35yHBejgp5Q",
+    authDomain: "casamento-59280.firebaseapp.com",
+    projectId: "casamento-59280",
+    storageBucket: "casamento-59280.firebasestorage.app",
+    messagingSenderId: "1078460802675",
+    appId: "1:1078460802675:web:f95d0a4fc19c3799abac06"
+};
+
+// Inicializar Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Configuração do EmailJS
+// Preencha estes valores com os dados da sua conta EmailJS.
+const emailjsConfig = {
+    publicKey: "e_9h-QCHc2hp9EaBc",
+    serviceId: "service_l5smfqp",
+    templateId: "template_4a4ndt6"
+};
+
+if (window.emailjs && emailjsConfig.publicKey !== "e_9h-QCHc2hp9EaBc") {
+    emailjs.init({
+        publicKey: emailjsConfig.publicKey
+    });
+}
+
+function activateTab(tabId) {
+    document.querySelectorAll('.tab-button').forEach(tabButton => {
+        tabButton.classList.toggle('active', tabButton.dataset.tab === tabId);
+    });
+    document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === tabId);
+    });
+}
+
+function showPopup(title, message) {
+    const popup = document.getElementById('rsvp-popup');
+    document.getElementById('popup-title').textContent = title;
+    document.getElementById('popup-message').textContent = message;
+    popup.classList.add('active');
+    popup.setAttribute('aria-hidden', 'false');
+}
+
+function closePopup() {
+    const popup = document.getElementById('rsvp-popup');
+    popup.classList.remove('active');
+    popup.setAttribute('aria-hidden', 'true');
+}
+
+document.querySelectorAll('.popup-close, .popup-button').forEach(button => {
+    button.addEventListener('click', closePopup);
+});
+
+document.getElementById('rsvp-popup').addEventListener('click', (event) => {
+    if (event.target.id === 'rsvp-popup') {
+        closePopup();
+    }
+});
+
+// Navegação entre abas
+document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+        activateTab(button.dataset.tab);
+    });
+});
+
+document.querySelectorAll('.cover-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const cover = document.getElementById('cover');
+
+        if (cover.classList.contains('cover-hidden')) {
+            return;
+        }
+
+        activateTab(button.dataset.coverTab);
+        document.body.classList.remove('cover-active');
+        cover.classList.add('cover-hidden');
+
+        setTimeout(() => {
+            cover.classList.add('cover-dismissed');
+        }, 600);
+
+        setTimeout(() => {
+            document.getElementById('tabs').scrollIntoView({ behavior: 'smooth' });
+        }, 250);
+    });
+});
+
+// Função para enviar RSVP
+document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const submitButton = form.querySelector('button[type="submit"]');
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const attending = document.getElementById('attending').value;
+    const guests = document.getElementById('guests').value || '1';
+    const guestsNumber = Number.parseInt(guests, 10) || 1;
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Enviando...';
+    document.getElementById('rsvp-message').textContent = '';
+
+    try {
+        await db.collection('rsvp').add({
+            name,
+            email,
+            attending,
+            guests: guestsNumber,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        try {
+            await sendConfirmationEmail({
+                name,
+                email,
+                attending,
+                guests: guestsNumber
+            });
+        } catch (emailError) {
+            console.error('RSVP salvo, mas houve erro ao enviar o e-mail:', emailError);
+        }
+
+        document.getElementById('rsvp-message').textContent = 'Obrigado por confirmar sua presença!';
+        showPopup(
+            `Obrigado, ${name}!`,
+            'Recebemos sua confirmação com muito carinho. Vai ser uma alegria enorme ter você conosco nesse dia tão especial.'
+        );
+        form.reset();
+    } catch (error) {
+        console.error('Erro ao enviar RSVP:', error);
+        document.getElementById('rsvp-message').textContent = 'Erro ao enviar. Tente novamente.';
+        showPopup(
+            'Ops, não conseguimos enviar',
+            'Aconteceu um imprevisto ao confirmar sua presença. Por favor, tente novamente em alguns instantes.'
+        );
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar';
+    }
+});
+
+async function sendConfirmationEmail({ name, email, attending, guests }) {
+    const emailIsConfigured = window.emailjs &&
+        emailjsConfig.publicKey !== "SEU_PUBLIC_KEY" &&
+        emailjsConfig.serviceId !== "SEU_SERVICE_ID" &&
+        emailjsConfig.templateId !== "SEU_TEMPLATE_ID";
+
+    if (!emailIsConfigured) {
+        console.warn('EmailJS ainda não está configurado. Preencha publicKey, serviceId e templateId.');
+        return;
+    }
+
+    const attendingText = attending === 'yes' ? 'Sim, vou comparecer' : 'Não vou poder comparecer';
+
+    await emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, {
+        to_email: email,
+        to_name: name,
+        guest_name: name,
+        guest_email: email,
+        attending: attendingText,
+        guests: guests || '1',
+        wedding_date: '05 de setembro de 2026',
+        couple_names: 'Marconi e Priscila'
+    });
+}
+
+// Função para carregar lista de presentes
+async function loadGifts() {
+    const giftList = document.getElementById('gift-list');
+    try {
+        const snapshot = await db.collection('gifts').get();
+        snapshot.forEach(doc => {
+            const gift = doc.data();
+            const giftItem = document.createElement('div');
+            giftItem.className = 'gift-item';
+            giftItem.innerHTML = `
+                <h3>${gift.name}</h3>
+                <p>${gift.description}</p>
+                <p>R$ ${gift.price}</p>
+                <button onclick="selectGift('${doc.id}')">Selecionar</button>
+            `;
+            giftList.appendChild(giftItem);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar presentes:', error);
+        // Fallback: lista estática
+        giftList.innerHTML = `
+            <div class="gift-item">
+                <h3>Jogo de Talheres</h3>
+                <p>Conjunto completo para jantar</p>
+                <p>R$ 200</p>
+                <button>Selecionar</button>
+            </div>
+            <div class="gift-item">
+                <h3>Vinho Tinto</h3>
+                <p>Garrafa especial</p>
+                <p>R$ 50</p>
+                <button>Selecionar</button>
+            </div>
+        `;
+    }
+}
+
+// Função para selecionar presente
+async function selectGift(giftId) {
+    try {
+        await db.collection('selectedGifts').add({
+            giftId,
+            selectedBy: 'Anônimo', // Pode ser melhorado
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        alert('Presente selecionado!');
+    } catch (error) {
+        console.error('Erro ao selecionar presente:', error);
+    }
+}
+
+// Carregar presentes ao carregar a página
+window.addEventListener('load', loadGifts);
+
+// Animações de scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+        }
+    });
+});
+
+document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+});
