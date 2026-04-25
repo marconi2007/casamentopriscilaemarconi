@@ -20,7 +20,7 @@ const emailjsConfig = {
     templateId: "template_4a4ndt6"
 };
 
-if (window.emailjs && emailjsConfig.publicKey !== "e_9h-QCHc2hp9EaBc") {
+if (window.emailjs && emailjsConfig.publicKey !== "SEU_PUBLIC_KEY") {
     emailjs.init({
         publicKey: emailjsConfig.publicKey
     });
@@ -132,10 +132,17 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
         form.reset();
     } catch (error) {
         console.error('Erro ao enviar RSVP:', error);
-        document.getElementById('rsvp-message').textContent = 'Erro ao enviar. Tente novamente.';
+        const permissionDenied = error && error.code === 'permission-denied';
+        const message = permissionDenied
+            ? 'Erro de permissão no Firebase. Verifique as regras do Firestore.'
+            : 'Erro ao enviar. Tente novamente.';
+
+        document.getElementById('rsvp-message').textContent = message;
         showPopup(
             'Ops, não conseguimos enviar',
-            'Aconteceu um imprevisto ao confirmar sua presença. Por favor, tente novamente em alguns instantes.'
+            permissionDenied
+                ? 'O formulário está funcionando, mas o banco de dados recusou a gravação. Ajuste as regras do Firestore para permitir novas confirmações.'
+                : 'Aconteceu um imprevisto ao confirmar sua presença. Por favor, tente novamente em alguns instantes.'
         );
     } finally {
         submitButton.disabled = false;
