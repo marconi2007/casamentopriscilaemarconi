@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="cover-active">
@@ -26,6 +27,7 @@
                 Ver no Maps
             </button>
         </div>
+        <button id="secret-login-trigger" class="secret-zone" type="button" aria-label="Área secreta de login"></button>
     </section>
 
     <header>
@@ -99,6 +101,36 @@
                 Que alegria ter você com a gente nesse dia tão especial.
             </p>
             <button class="popup-button" type="button">Fechar</button>
+        </div>
+    </div>
+
+    <div id="auth-popup" class="popup-overlay" aria-hidden="true">
+        <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+            <button class="popup-close" type="button" aria-label="Fechar login secreto">&times;</button>
+            <span class="popup-icon">🔐</span>
+            <h2 id="auth-title">Login Secreto</h2>
+            <p>Faça login para ver quem reservou presente e quem confirmou presença.</p>
+            <form id="auth-form">
+                <input id="auth-email" type="email" placeholder="E-mail" required>
+                <input id="auth-password" type="password" placeholder="Senha" required>
+                <div id="auth-error" class="popup-error" aria-live="polite"></div>
+                <button type="submit">Entrar</button>
+            </form>
+            <div id="admin-content" class="admin-content hidden" aria-live="polite">
+                <h3>Visão secreta</h3>
+                <div class="admin-columns">
+                    <div class="admin-card">
+                        <h4>Lista de Presença</h4>
+                        <ul id="admin-rsvp-list"></ul>
+                    </div>
+                    <div class="admin-card">
+                        <h4>Reservas de Presente</h4>
+                        <ul id="admin-gift-list"></ul>
+                    </div>
+                </div>
+                <button id="auth-logout" type="button" class="popup-button">Sair</button>
+            </div>
+            <button class="popup-button" type="button" id="auth-cancel">Fechar</button>
         </div>
     </div>
 

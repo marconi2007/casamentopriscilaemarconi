@@ -10,7 +10,18 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 const db = firebase.firestore();
+
+const authPopup = document.getElementById('auth-popup');
+const authForm = document.getElementById('auth-form');
+const authError = document.getElementById('auth-error');
+const adminContent = document.getElementById('admin-content');
+const adminRsvpList = document.getElementById('admin-rsvp-list');
+const adminGiftList = document.getElementById('admin-gift-list');
+const secretLoginTrigger = document.getElementById('secret-login-trigger');
+const authLogoutButton = document.getElementById('auth-logout');
+const authCancelButton = document.getElementById('auth-cancel');
 
 // Configuração do EmailJS
 // Preencha estes valores com os dados da sua conta EmailJS.
@@ -25,6 +36,112 @@ if (window.emailjs && emailjsConfig.publicKey !== "SEU_PUBLIC_KEY") {
         publicKey: emailjsConfig.publicKey
     });
 }
+
+function openAuthModal() {
+    authError.textContent = '';
+    authForm.reset();
+    authForm.classList.remove('hidden');
+    adminContent.classList.add('hidden');
+    authPopup.classList.add('active');
+    authPopup.setAttribute('aria-hidden', 'false');
+}
+
+function closeAuthModal() {
+    authPopup.classList.remove('active');
+    authPopup.setAttribute('aria-hidden', 'true');
+}
+
+function showAuthError(message) {
+    authError.textContent = message;
+}
+
+function hideAdminContent() {
+    authForm.classList.remove('hidden');
+    adminContent.classList.add('hidden');
+}
+
+async function showAdminData() {
+    authForm.classList.add('hidden');
+    adminContent.classList.remove('hidden');
+    authError.textContent = '';
+}
+
+async function loadAdminData() {
+    adminRsvpList.innerHTML = '<li>Carregando...</li>';
+    adminGiftList.innerHTML = '<li>Carregando...</li>';
+
+    try {
+        const [rsvpSnapshot, giftsSnapshot, selectedSnapshot] = await Promise.all([
+            db.collection('rsvp').orderBy('timestamp', 'desc').get(),
+            db.collection('gifts').get(),
+            db.collection('selectedGifts').orderBy('timestamp', 'desc').get()
+        ]);
+
+        const giftNames = {};
+        giftsSnapshot.forEach(doc => {
+            giftNames[doc.id] = doc.data().name || 'Presente';
+        });
+
+        adminRsvpList.innerHTML = rsvpSnapshot.docs.length
+            ? rsvpSnapshot.docs.map(doc => {
+                const item = doc.data();
+                const status = item.attending === 'yes' ? 'Vai' : 'Não vai';
+                return `<li><strong>${item.name}</strong> — ${status}${item.guests ? ` (${item.guests} convidados)` : ''}</li>`;
+            }).join('')
+            : '<li>Nenhuma confirmação encontrada.</li>';
+
+        adminGiftList.innerHTML = selectedSnapshot.docs.length
+            ? selectedSnapshot.docs.map(doc => {
+                const item = doc.data();
+                const giftLabel = giftNames[item.giftId] || item.giftId || 'Presente reservado';
+                return `<li><strong>${giftLabel}</strong> — ${item.selectedBy || 'Anônimo'}</li>`;
+            }).join('')
+            : '<li>Nenhuma reserva de presente encontrada.</li>';
+    } catch (error) {
+        console.error('Erro ao carregar dados secretos:', error);
+        adminRsvpList.innerHTML = '<li>Erro ao carregar lista de presença.</li>';
+        adminGiftList.innerHTML = '<li>Erro ao carregar reservas de presente.</li>';
+    }
+}
+
+async function handleAuthSubmit(event) {
+    event.preventDefault();
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value.trim();
+
+    if (!email || !password) {
+        showAuthError('Preencha e-mail e senha.');
+        return;
+    }
+
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+        await loadAdminData();
+        await showAdminData();
+    } catch (error) {
+        console.error('Erro de autenticação:', error);
+        showAuthError('Login inválido. Verifique seus dados e tente novamente.');
+    }
+}
+
+async function handleAuthLogout() {
+    try {
+        await auth.signOut();
+    } finally {
+        closeAuthModal();
+    }
+}
+
+secretLoginTrigger.addEventListener('click', openAuthModal);
+authLogoutButton.addEventListener('click', handleAuthLogout);
+authCancelButton.addEventListener('click', closeAuthModal);
+authPopup.addEventListener('click', event => {
+    if (event.target === authPopup) {
+        closeAuthModal();
+    }
+});
+
+authForm.addEventListener('submit', handleAuthSubmit);
 
 function activateTab(tabId) {
     document.querySelectorAll('.tab-button').forEach(tabButton => {

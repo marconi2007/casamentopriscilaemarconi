@@ -2,19 +2,19 @@
 
 /* Reset básico */
 :root {
-    --rose-cinnamon-50: #fdf8f6;
-    --rose-cinnamon-100: #f5e9e4;
-    --rose-cinnamon-200: #e6c9c0;
-    --rose-cinnamon-300: #d3a89a;
-    --rose-cinnamon-400: #c08a78;
-    --rose-cinnamon-500: #A97856;
-    --rose-cinnamon-600: #8f6549;
-    --rose-cinnamon-700: #75523d;
-    --rose-cinnamon-800: #5c4031;
-    --rose-cinnamon-900: #432e25;
-    --warm-cream: #fffaf6;
-    --text-warm: #432e25;
-    --shadow-rose: rgba(169, 120, 86, 0.22);
+    --rose-cinnamon-50: #f7ebe7;
+    --rose-cinnamon-100: #f0d5ce;
+    --rose-cinnamon-200: #e1b1a0;
+    --rose-cinnamon-300: #ce846f;
+    --rose-cinnamon-400: #ba6652;
+    --rose-cinnamon-500: #9e4f41;
+    --rose-cinnamon-600: #844030;
+    --rose-cinnamon-700: #6b3228;
+    --rose-cinnamon-800: #52271f;
+    --rose-cinnamon-900: #3d1d17;
+    --warm-cream: #fff3ee;
+    --text-warm: #3f2a24;
+    --shadow-rose: rgba(158, 79, 65, 0.22);
 }
 
 .wedding-couple-name {
@@ -44,7 +44,7 @@ body.cover-active {
 }
 
 header {
-    background: linear-gradient(135deg, var(--rose-cinnamon-100), var(--rose-cinnamon-500), var(--warm-cream));
+    background: linear-gradient(135deg, var(--rose-cinnamon-200), var(--rose-cinnamon-600), var(--warm-cream));
     color: white;
     text-align: center;
     padding: calc(2rem + env(safe-area-inset-top)) 0 2rem;
@@ -88,10 +88,69 @@ section {
     background:
         linear-gradient(rgba(28, 27, 22, 0.72), rgba(28, 27, 22, 0.72)),
         url('nos.jpeg') center center/cover no-repeat,
-        radial-gradient(circle at 52% 28%, rgba(245, 233, 228, 0.38), transparent 7rem),
-        radial-gradient(circle at 64% 88%, rgba(169, 120, 86, 0.38), transparent 9rem),
-        linear-gradient(135deg, #2a201f, #5b403b);
+        radial-gradient(circle at 52% 28%, rgba(247, 235, 229, 0.42), transparent 7rem),
+        radial-gradient(circle at 64% 88%, rgba(158, 79, 65, 0.38), transparent 9rem),
+        linear-gradient(135deg, #2a201f, #4f372f);
     transition: opacity 0.55s ease, visibility 0.55s ease, transform 0.55s ease;
+}
+
+.secret-zone {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1050;
+}
+
+.secret-zone:hover {
+    outline: 2px solid rgba(255, 255, 255, 0.18);
+}
+
+.admin-content {
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.admin-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.admin-card {
+    background: rgba(255, 243, 238, 0.96);
+    border: 1px solid rgba(158, 79, 65, 0.22);
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 12px 24px rgba(158, 79, 65, 0.12);
+    max-height: 320px;
+    overflow: auto;
+}
+
+.admin-card h4 {
+    margin-bottom: 0.75rem;
+    color: var(--rose-cinnamon-700);
+}
+
+.admin-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-warm);
+}
+
+.admin-card li {
+    margin-bottom: 0.65rem;
+    font-size: 0.95rem;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .pre-cover.cover-hidden {
