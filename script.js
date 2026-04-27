@@ -88,6 +88,26 @@ document.querySelectorAll('.cover-button').forEach(button => {
     });
 });
 
+const guestsInput = document.getElementById('guests');
+const guestNamesContainer = document.getElementById('guest-names-container');
+
+function updateGuestNameFields() {
+    const count = Math.max(0, Number.parseInt(guestsInput.value, 10) || 0);
+    guestNamesContainer.innerHTML = '';
+
+    for (let i = 1; i <= count; i += 1) {
+        const field = document.createElement('input');
+        field.type = 'text';
+        field.className = 'guest-name-input';
+        field.placeholder = `Nome do convidado ${i}`;
+        field.required = true;
+        guestNamesContainer.appendChild(field);
+    }
+}
+
+guestsInput.addEventListener('input', updateGuestNameFields);
+updateGuestNameFields();
+
 // Função para enviar RSVP
 document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -97,8 +117,14 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const attending = document.getElementById('attending').value;
-    const guests = document.getElementById('guests').value || '1';
-    const guestsNumber = Number.parseInt(guests, 10) || 1;
+    const guestsNumber = Math.max(0, Number.parseInt(document.getElementById('guests').value, 10) || 0);
+    const guestNames = Array.from(document.querySelectorAll('.guest-name-input'))
+        .map(input => input.value.trim());
+
+    if (guestsNumber > 0 && guestNames.some(guestName => guestName === '')) {
+        document.getElementById('rsvp-message').textContent = 'Preencha todos os nomes dos convidados.';
+        return;
+    }
 
     submitButton.disabled = true;
     submitButton.textContent = 'Enviando...';
@@ -110,6 +136,7 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
             email,
             attending,
             guests: guestsNumber,
+            guestNames,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
 
@@ -118,7 +145,8 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
                 name,
                 email,
                 attending,
-                guests: guestsNumber
+                guests: guestsNumber,
+                guestNames
             });
         } catch (emailError) {
             console.error('RSVP salvo, mas houve erro ao enviar o e-mail:', emailError);
@@ -150,7 +178,7 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     }
 });
 
-async function sendConfirmationEmail({ name, email, attending, guests }) {
+async function sendConfirmationEmail({ name, email, attending, guests, guestNames = [] }) {
     const emailIsConfigured = window.emailjs &&
         emailjsConfig.publicKey !== "SEU_PUBLIC_KEY" &&
         emailjsConfig.serviceId !== "SEU_SERVICE_ID" &&
@@ -166,12 +194,17 @@ async function sendConfirmationEmail({ name, email, attending, guests }) {
     await emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, {
         to_email: email,
         to_name: name,
+        email: email,
+        user_email: email,
         guest_name: name,
         guest_email: email,
         attending: attendingText,
-        guests: guests || '1',
+        guests: String(guests || '0'),
+        guest_names: guestNames.length ? guestNames.join(', ') : 'Nenhum convidado adicional',
         wedding_date: '05 de setembro de 2026',
-        couple_names: 'Marconi e Priscila'
+        couple_names: 'Priscila e Marconi',
+        from_name: 'Priscila e Marconi',
+        reply_to: email
     });
 }
 
@@ -241,3 +274,25 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
+
+// Função para contagem regressiva
+function updateCountdown() {
+    const weddingDate = new Date('2026-09-05T00:00:00');
+    const now = new Date();
+    const diff = weddingDate - now;
+
+    if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = 'O grande dia chegou!';
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('countdown').innerHTML = `Faltam ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos para o casamento!`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();

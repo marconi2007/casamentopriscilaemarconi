@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casamento de Marconi e Priscila</title>
+    <title>Casamento de Priscila e Marconi</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -11,21 +11,25 @@
 </head>
 <body class="cover-active">
     <section id="cover" class="pre-cover">
+        <div class="cover-header">
+            <h1 class="cover-title wedding-couple-name">Priscila & Marconi</h1>
+            <div id="countdown" class="countdown cover-countdown"></div>
+        </div>
         <div class="cover-actions" aria-label="Acessos rápidos do casamento">
             <button class="cover-button cover-button-wide" type="button" data-cover-tab="rsvp">
                 Confirmação de Presença
             </button>
-            <button class="cover-button" type="button" data-cover-tab="location">
-                Ver no Maps
-            </button>
             <button class="cover-button" type="button" data-cover-tab="gifts">
                 Lista de Presente
+            </button>
+            <button class="cover-button" type="button" data-cover-tab="location">
+                Ver no Maps
             </button>
         </div>
     </section>
 
     <header>
-        <h1>Marconi & Priscila</h1>
+        <h1 class="wedding-couple-name">Priscila & Marconi</h1>
         <p>Nosso Grande Dia - 05 de setembro de 2026</p>
     </header>
 
@@ -57,7 +61,8 @@
                     <option value="yes">Sim, vou comparecer</option>
                     <option value="no">Não, não vou poder</option>
                 </select>
-                <input type="number" id="guests" placeholder="Número de Convidados" min="1" max="10">
+                <input type="number" id="guests" placeholder="Número de convidados extras" min="0" max="10" value="0">
+                <div id="guest-names-container" class="guest-names-container"></div>
                 <button type="submit">Enviar</button>
             </form>
             <div id="rsvp-message"></div>
