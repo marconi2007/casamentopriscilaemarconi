@@ -446,9 +446,12 @@ async function selectGift(giftId, selectedBy) {
         await loadGifts();
     } catch (error) {
         console.error('Erro ao selecionar presente:', error);
+        const permissionDenied = error && error.code === 'permission-denied';
         alert(error.message === 'gift-already-reserved'
             ? 'Este presente já foi reservado.'
-            : 'Erro ao reservar presente. Tente novamente.');
+            : permissionDenied
+                ? 'Erro de permissão no Firebase. Verifique as regras do Firestore para selectedGifts.'
+                : 'Erro ao reservar presente. Tente novamente.');
         await loadGifts();
     }
 }
