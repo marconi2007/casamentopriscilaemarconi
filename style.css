@@ -96,10 +96,10 @@ section {
 
 .secret-zone {
     position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    width: 3.5rem;
-    height: 3.5rem;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 1.1rem;
+    height: 1.1rem;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -107,7 +107,7 @@ section {
 }
 
 .secret-zone:hover {
-    outline: 2px solid rgba(255, 255, 255, 0.18);
+    outline: none;
 }
 
 .admin-content {
@@ -444,6 +444,29 @@ button:active {
 .gift-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 14px 28px rgba(169, 120, 86, 0.2);
+}
+
+.gift-item-reserved {
+    opacity: 0.72;
+}
+
+.gift-item-reserved:hover {
+    transform: none;
+}
+
+.gift-reservation {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.gift-reservation input {
+    width: 100%;
+}
+
+.gift-reserved-message {
+    color: var(--rose-cinnamon-700);
+    font-weight: bold;
 }
 
 .location-address {

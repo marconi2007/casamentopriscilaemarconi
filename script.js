@@ -22,6 +22,13 @@ const adminGiftList = document.getElementById('admin-gift-list');
 const secretLoginTrigger = document.getElementById('secret-login-trigger');
 const authLogoutButton = document.getElementById('auth-logout');
 const authCancelButton = document.getElementById('auth-cancel');
+const authCloseButton = authPopup.querySelector('.popup-close');
+const testGift = {
+    id: 'teste',
+    name: 'Teste',
+    description: 'Presente de teste',
+    price: '0'
+};
 
 // Configuração do EmailJS
 // Preencha estes valores com os dados da sua conta EmailJS.
@@ -78,6 +85,7 @@ async function loadAdminData() {
         ]);
 
         const giftNames = {};
+        giftNames[testGift.id] = testGift.name;
         giftsSnapshot.forEach(doc => {
             giftNames[doc.id] = doc.data().name || 'Presente';
         });
@@ -135,6 +143,7 @@ async function handleAuthLogout() {
 secretLoginTrigger.addEventListener('click', openAuthModal);
 authLogoutButton.addEventListener('click', handleAuthLogout);
 authCancelButton.addEventListener('click', closeAuthModal);
+authCloseButton.addEventListener('click', closeAuthModal);
 authPopup.addEventListener('click', event => {
     if (event.target === authPopup) {
         closeAuthModal();
@@ -166,7 +175,7 @@ function closePopup() {
     popup.setAttribute('aria-hidden', 'true');
 }
 
-document.querySelectorAll('.popup-close, .popup-button').forEach(button => {
+document.querySelectorAll('#rsvp-popup .popup-close, #rsvp-popup .popup-button').forEach(button => {
     button.addEventListener('click', closePopup);
 });
 
@@ -328,51 +337,119 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
 // Função para carregar lista de presentes
 async function loadGifts() {
     const giftList = document.getElementById('gift-list');
+    giftList.innerHTML = '<p>Carregando presentes...</p>';
+
     try {
-        const snapshot = await db.collection('gifts').get();
-        snapshot.forEach(doc => {
-            const gift = doc.data();
-            const giftItem = document.createElement('div');
-            giftItem.className = 'gift-item';
-            giftItem.innerHTML = `
-                <h3>${gift.name}</h3>
-                <p>${gift.description}</p>
-                <p>R$ ${gift.price}</p>
-                <button onclick="selectGift('${doc.id}')">Selecionar</button>
-            `;
-            giftList.appendChild(giftItem);
+        const [giftSnapshot, selectedSnapshot] = await Promise.all([
+            db.collection('gifts').get(),
+            db.collection('selectedGifts').get()
+        ]);
+
+        const gifts = new Map([[testGift.id, testGift]]);
+        const selectedGifts = {};
+
+        giftSnapshot.forEach(doc => {
+            gifts.set(doc.id, {
+                id: doc.id,
+                ...doc.data()
+            });
+        });
+
+        selectedSnapshot.forEach(doc => {
+            const item = doc.data();
+            const giftId = item.giftId || doc.id;
+            selectedGifts[giftId] = item;
+        });
+
+        giftList.innerHTML = '';
+        gifts.forEach(gift => {
+            giftList.appendChild(createGiftItem(gift, selectedGifts[gift.id]));
         });
     } catch (error) {
         console.error('Erro ao carregar presentes:', error);
         // Fallback: lista estática
-        giftList.innerHTML = `
-            <div class="gift-item">
-                <h3>Jogo de Talheres</h3>
-                <p>Conjunto completo para jantar</p>
-                <p>R$ 200</p>
-                <button>Selecionar</button>
-            </div>
-            <div class="gift-item">
-                <h3>Vinho Tinto</h3>
-                <p>Garrafa especial</p>
-                <p>R$ 50</p>
-                <button>Selecionar</button>
-            </div>
-        `;
+        giftList.innerHTML = '';
+        giftList.appendChild(createGiftItem(testGift));
     }
 }
 
+function createGiftItem(gift, selectedGift) {
+    const giftItem = document.createElement('div');
+    giftItem.className = 'gift-item';
+
+    if (selectedGift) {
+        giftItem.classList.add('gift-item-reserved');
+    }
+
+    const title = document.createElement('h3');
+    title.textContent = gift.name || 'Presente';
+
+    const description = document.createElement('p');
+    description.textContent = gift.description || '';
+
+    const price = document.createElement('p');
+    price.textContent = `R$ ${gift.price || '0'}`;
+
+    const reservation = document.createElement('div');
+    reservation.className = 'gift-reservation';
+
+    if (selectedGift) {
+        const reservedMessage = document.createElement('p');
+        reservedMessage.className = 'gift-reserved-message';
+        reservedMessage.textContent = 'Indisponível';
+        reservation.appendChild(reservedMessage);
+    } else {
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.placeholder = 'Seu nome';
+        nameInput.setAttribute('aria-label', `Nome para reservar ${gift.name || 'presente'}`);
+
+        const reserveButton = document.createElement('button');
+        reserveButton.type = 'button';
+        reserveButton.textContent = 'Reservar';
+        reserveButton.addEventListener('click', () => selectGift(gift.id, nameInput.value));
+
+        reservation.append(nameInput, reserveButton);
+    }
+
+    giftItem.append(title, description, price, reservation);
+    return giftItem;
+}
+
 // Função para selecionar presente
-async function selectGift(giftId) {
+async function selectGift(giftId, selectedBy) {
+    const selectedName = String(selectedBy || '').trim();
+
+    if (!selectedName) {
+        alert('Digite seu nome para reservar o presente.');
+        return;
+    }
+
     try {
-        await db.collection('selectedGifts').add({
-            giftId,
-            selectedBy: 'Anônimo', // Pode ser melhorado
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        const selectedGiftRef = db.collection('selectedGifts').doc(giftId);
+
+        await db.runTransaction(async transaction => {
+            const selectedGift = await transaction.get(selectedGiftRef);
+
+            if (selectedGift.exists) {
+                throw new Error('gift-already-reserved');
+            }
+
+            transaction.set(selectedGiftRef, {
+                giftId,
+                selectedBy: selectedName,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
         });
-        alert('Presente selecionado!');
+
+        alert('Presente reservado!');
+        await loadGifts();
     } catch (error) {
         console.error('Erro ao selecionar presente:', error);
+        alert(error.message === 'gift-already-reserved'
+            ? 'Este presente já foi reservado.'
+            : 'Erro ao reservar presente. Tente novamente.');
+        await loadGifts();
     }
 }
 
