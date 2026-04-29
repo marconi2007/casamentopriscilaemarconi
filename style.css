@@ -115,9 +115,19 @@ section {
     margin-top: 1rem;
 }
 
+.popup-card.admin-mode {
+    width: min(92vw, 46rem);
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+}
+
+.popup-card.admin-mode > p {
+    display: none;
+}
+
 .admin-columns {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(16rem, 1fr));
     gap: 1rem;
     margin-top: 1rem;
 }
@@ -125,7 +135,7 @@ section {
 .admin-card {
     background: rgba(255, 243, 238, 0.96);
     border: 1px solid rgba(158, 79, 65, 0.22);
-    border-radius: 14px;
+    border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 12px 24px rgba(158, 79, 65, 0.12);
     max-height: 320px;
@@ -135,6 +145,7 @@ section {
 .admin-card h4 {
     margin-bottom: 0.75rem;
     color: var(--rose-cinnamon-700);
+    font-size: 1.05rem;
 }
 
 .admin-card ul {
@@ -145,8 +156,52 @@ section {
 }
 
 .admin-card li {
-    margin-bottom: 0.65rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(158, 79, 65, 0.14);
     font-size: 0.95rem;
+}
+
+.admin-card li:last-child {
+    border-bottom: 0;
+}
+
+.admin-card li strong,
+.admin-card li small,
+.admin-card li span {
+    min-width: 0;
+}
+
+.admin-card li strong {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+.admin-card li small {
+    display: block;
+    margin-top: 0.15rem;
+    color: rgba(63, 42, 36, 0.72);
+    font-size: 0.82rem;
+}
+
+.admin-card li > span:last-child {
+    color: var(--rose-cinnamon-700);
+    font-weight: 700;
+    text-align: right;
+}
+
+.auth-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+}
+
+.popup-card:not(.admin-mode) #auth-logout {
+    display: none;
 }
 
 .hidden {
@@ -726,5 +781,31 @@ footer {
 
     .popup-button {
         width: 100%;
+    }
+
+    .popup-card.admin-mode {
+        width: min(100%, 34rem);
+    }
+
+    .admin-columns {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+    }
+
+    .admin-card {
+        max-height: 240px;
+    }
+
+    .admin-card li {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+    .admin-card li > span:last-child {
+        text-align: left;
+    }
+
+    .auth-actions {
+        flex-direction: column;
     }
 }

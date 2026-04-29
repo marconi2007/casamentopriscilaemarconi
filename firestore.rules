@@ -1,0 +1,110 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /* =========================
+       CONFIRMACAO DE PRESENCA
+       Qualquer pessoa pode enviar
+    ========================== */
+    match /rsvp/{docId} {
+      allow create: if isValidRSVP(request.resource.data);
+      allow read, update, delete: if request.auth != null;
+    }
+
+    /* =========================
+       LISTA DE PRESENTES
+       Todos podem visualizar
+       Apenas logado administra
+    ========================== */
+    match /gifts/{giftId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    /* =========================
+       RESERVA DE PRESENTES
+       Qualquer pessoa pode reservar
+       Apenas admins/logados editam ou removem
+    ========================== */
+    match /selectedGifts/{giftId} {
+      allow read: if true;
+
+      allow create: if
+        !exists(/databases/$(database)/documents/selectedGifts/$(giftId))
+        && request.resource.data.keys().hasOnly([
+          'giftId',
+          'selectedBy',
+          'timestamp'
+        ])
+        && request.resource.data.giftId == giftId
+        && request.resource.data.giftId is string
+        && request.resource.data.giftId.size() > 0
+        && request.resource.data.giftId.size() <= 120
+        && request.resource.data.selectedBy is string
+        && request.resource.data.selectedBy.size() > 0
+        && request.resource.data.selectedBy.size() <= 80
+        && request.resource.data.timestamp is timestamp;
+
+      allow update, delete: if request.auth != null;
+    }
+
+    /* =========================
+       VALIDACAO RSVP
+    ========================== */
+    function isValidRSVP(data) {
+      return data.keys().hasOnly([
+          'name',
+          'email',
+          'attending',
+          'guests',
+          'guestNames',
+          'timestamp'
+        ])
+        && data.keys().hasAll([
+          'name',
+          'email',
+          'attending',
+          'guests',
+          'guestNames',
+          'timestamp'
+        ])
+        && data.name is string
+        && data.name.size() > 0
+        && data.name.size() <= 80
+        && data.email is string
+        && data.email.size() > 0
+        && data.email.size() <= 120
+        && data.attending in ['yes', 'no']
+        && data.guests is int
+        && data.guests >= 0
+        && data.guests <= 10
+        && data.guestNames is list
+        && data.guestNames.size() == data.guests
+        && data.timestamp is timestamp
+        && isValidGuestNames(data.guestNames);
+    }
+
+    function isValidGuestNames(guestNames) {
+      return validGuestNameAt(guestNames, 0)
+        && validGuestNameAt(guestNames, 1)
+        && validGuestNameAt(guestNames, 2)
+        && validGuestNameAt(guestNames, 3)
+        && validGuestNameAt(guestNames, 4)
+        && validGuestNameAt(guestNames, 5)
+        && validGuestNameAt(guestNames, 6)
+        && validGuestNameAt(guestNames, 7)
+        && validGuestNameAt(guestNames, 8)
+        && validGuestNameAt(guestNames, 9);
+    }
+
+    function validGuestNameAt(guestNames, index) {
+      return guestNames.size() <= index
+        || (
+          guestNames[index] is string
+          && guestNames[index].size() > 0
+          && guestNames[index].size() <= 80
+        );
+    }
+  }
+}

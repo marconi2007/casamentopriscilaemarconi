@@ -14,6 +14,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 const authPopup = document.getElementById('auth-popup');
+const authCard = authPopup.querySelector('.popup-card');
 const authForm = document.getElementById('auth-form');
 const authError = document.getElementById('auth-error');
 const adminContent = document.getElementById('admin-content');
@@ -49,6 +50,7 @@ function openAuthModal() {
     authForm.reset();
     authForm.classList.remove('hidden');
     adminContent.classList.add('hidden');
+    authCard.classList.remove('admin-mode');
     authPopup.classList.add('active');
     authPopup.setAttribute('aria-hidden', 'false');
 }
@@ -56,6 +58,7 @@ function openAuthModal() {
 function closeAuthModal() {
     authPopup.classList.remove('active');
     authPopup.setAttribute('aria-hidden', 'true');
+    authCard.classList.remove('admin-mode');
 }
 
 function showAuthError(message) {
@@ -65,11 +68,13 @@ function showAuthError(message) {
 function hideAdminContent() {
     authForm.classList.remove('hidden');
     adminContent.classList.add('hidden');
+    authCard.classList.remove('admin-mode');
 }
 
 async function showAdminData() {
     authForm.classList.add('hidden');
     adminContent.classList.remove('hidden');
+    authCard.classList.add('admin-mode');
     authError.textContent = '';
 }
 
@@ -94,7 +99,8 @@ async function loadAdminData() {
             ? rsvpSnapshot.docs.map(doc => {
                 const item = doc.data();
                 const status = item.attending === 'yes' ? 'Vai' : 'Não vai';
-                return `<li><strong>${item.name}</strong> — ${status}${item.guests ? ` (${item.guests} convidados)` : ''}</li>`;
+                const guests = item.guests ? `${item.guests} convidados` : '';
+                return `<li><span><strong>${item.name}</strong>${guests ? `<small>${guests}</small>` : ''}</span><span>${status}</span></li>`;
             }).join('')
             : '<li>Nenhuma confirmação encontrada.</li>';
 
@@ -102,7 +108,7 @@ async function loadAdminData() {
             ? selectedSnapshot.docs.map(doc => {
                 const item = doc.data();
                 const giftLabel = giftNames[item.giftId] || item.giftId || 'Presente reservado';
-                return `<li><strong>${giftLabel}</strong> — ${item.selectedBy || 'Anônimo'}</li>`;
+                return `<li><span><strong>${giftLabel}</strong></span><span>${item.selectedBy || 'Anônimo'}</span></li>`;
             }).join('')
             : '<li>Nenhuma reserva de presente encontrada.</li>';
     } catch (error) {
@@ -318,6 +324,7 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
     const attendingText = attending === 'yes' ? 'Sim, vou comparecer' : 'Não vou poder comparecer';
 
     await emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, {
+        subject: `Confirmação de presença - ${name}`,
         to_email: email,
         to_name: name,
         email: email,
