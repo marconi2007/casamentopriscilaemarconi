@@ -500,3 +500,53 @@ function updateCountdown() {
 
 setInterval(updateCountdown, 1000);
 updateCountdown();
+
+// Carrossel de Fotos
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const indicators = document.querySelectorAll('.indicator');
+const totalSlides = slides.length;
+
+function showSlide(n) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+    
+    slides[n].classList.add('active');
+    indicators[n].classList.add('active');
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    showSlide(currentSlide);
+}
+
+function goToSlide(n) {
+    currentSlide = n;
+    showSlide(currentSlide);
+}
+
+// Inicializar carrossel
+showSlide(0);
+
+// Trocar slide a cada 4 segundos
+const carouselInterval = setInterval(nextSlide, 4000);
+
+// Pausar e retomar ao passar mouse sobre o carrossel
+const carousel = document.querySelector('.carousel-container');
+if (carousel) {
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(carouselInterval);
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        clearInterval(carouselInterval);
+        setInterval(nextSlide, 4000);
+    });
+}
+
+// Adicionar listeners aos indicadores
+indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+        goToSlide(index);
+    });
+});
