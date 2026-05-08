@@ -528,8 +528,8 @@ function goToSlide(n) {
 // Inicializar carrossel
 showSlide(0);
 
-// Trocar slide a cada 4 segundos
-const carouselInterval = setInterval(nextSlide, 4000);
+// Trocar slide a cada 7 segundos
+let carouselInterval = setInterval(nextSlide, 7000);
 
 // Pausar e retomar ao passar mouse sobre o carrossel
 const carousel = document.querySelector('.carousel-container');
@@ -540,7 +540,7 @@ if (carousel) {
     
     carousel.addEventListener('mouseleave', () => {
         clearInterval(carouselInterval);
-        setInterval(nextSlide, 4000);
+        carouselInterval = setInterval(nextSlide, 7000);
     });
 }
 
