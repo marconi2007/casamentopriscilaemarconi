@@ -36,6 +36,38 @@ const testGift = {
 // Presentes padrão com imagens
 const defaultGifts = [
     {
+        id: 'airfryer',
+        name: 'Airfryer',
+        description: 'Airfryer prática para fritar com menos óleo',
+        price: '599',
+        image: 'Fotos/Airfryer.jpeg',
+        qrcodeImage: 'Fotos/qrcodeAirfryer.jpeg'
+    },
+    {
+        id: 'assadeiras',
+        name: 'Assadeiras',
+        description: 'Conjunto de assadeiras versáteis para forno',
+        price: '249',
+        image: 'Fotos/assadeiras.jpeg',
+        qrcodeImage: 'Fotos/qrcodeassadeiras.jpeg'
+    },
+    {
+        id: 'boleira-e-queijeira',
+        name: 'Boleira e Queijeira',
+        description: 'Conjunto elegante para servir bolos e queijos',
+        price: '329',
+        image: 'Fotos/boleiraequeijeira.jpeg',
+        qrcodeImage: 'Fotos/qrcodeboleiraequeijeira.jpeg'
+    },
+    {
+        id: 'cafeteira',
+        name: 'Cafeteira',
+        description: 'Cafeteira para começar o dia com aroma fresco',
+        price: '349',
+        image: 'Fotos/cafeteira.jpeg',
+        qrcodeImage: 'Fotos/qrcodecafeteira.jpeg'
+    },
+    {
         id: 'geladeira',
         name: 'Geladeira',
         description: 'Geladeira moderna para sua cozinha',
@@ -76,6 +108,14 @@ const defaultGifts = [
         qrcodeImage: 'Fotos/qrcodeclimatizador.jpeg'
     },
     {
+        id: 'depurador-de-ar',
+        name: 'Depurador de Ar',
+        description: 'Depurador de ar para uma cozinha mais limpa',
+        price: '1199',
+        image: 'Fotos/depuradordear.jpeg',
+        qrcodeImage: 'Fotos/qrcodedepuradordear.jpeg'
+    },
+    {
         id: 'cortinas',
         name: 'Cortinas',
         description: 'Cortinas elegantes para sala ou quarto',
@@ -108,12 +148,164 @@ const defaultGifts = [
         qrcodeImage: 'Fotos/qrcodeedredonqueen.jpeg'
     },
     {
+        id: 'sofa',
+        name: 'Sofá',
+        description: 'Sofá confortável para a sala',
+        price: '2399',
+        image: 'Fotos/sofa.jpeg',
+        qrcodeImage: 'Fotos/qrcodesofa.jpeg'
+    },
+    {
+        id: 'mesa',
+        name: 'Mesa',
+        description: 'Mesa elegante para a sala de jantar',
+        price: '1299',
+        image: 'Fotos/mesa.jpeg',
+        qrcodeImage: 'Fotos/qrcodemesa.jpeg'
+    },
+    {
+        id: 'tapete-para-sala',
+        name: 'Tapete para Sala',
+        description: 'Tapete aconchegante para a sala',
+        price: '399',
+        image: 'Fotos/tapeteparasala.jpeg',
+        qrcodeImage: 'Fotos/qrcodetapeteparasala.jpeg'
+    },
+    {
+        id: 'tv',
+        name: 'TV',
+        description: 'TV para momentos de cinema em casa',
+        price: '2399',
+        image: 'Fotos/tv.jpeg',
+        qrcodeImage: 'Fotos/qrcodetv.jpeg'
+    },
+    {
+        id: 'talheres',
+        name: 'Talheres',
+        description: 'Jogo de talheres elegante para a mesa',
+        price: '299',
+        image: 'Fotos/talheres.jpeg',
+        qrcodeImage: 'Fotos/qrcodetalheres.jpeg'
+    },
+    {
+        id: 'tacas-de-sobremesa',
+        name: 'Taças de Sobremesa',
+        description: 'Conjunto de taças delicadas para sobremesa',
+        price: '249',
+        image: 'Fotos/tacasdesobremesa.jpeg',
+        qrcodeImage: 'Fotos/qrcodetacasdesobremesa.jpeg'
+    },
+    {
+        id: 'jogo-de-copos',
+        name: 'Jogo de Copos',
+        description: 'Jogo de copos para bebidas e festas',
+        price: '199',
+        image: 'Fotos/jogodecopos.jpeg',
+        qrcodeImage: 'Fotos/qrcodejogodecopos.jpeg'
+    },
+    {
+        id: 'jogo-de-facas',
+        name: 'Jogo de Facas',
+        description: 'Jogo completo de facas para cozinha',
+        price: '349',
+        image: 'Fotos/jogodefacas.jpeg',
+        qrcodeImage: 'Fotos/qrcodejogodefacas.jpeg'
+    },
+    {
+        id: 'jogo-de-jantar',
+        name: 'Jogo de Jantar',
+        description: 'Jogo de jantar completo para receber amigos',
+        price: '599',
+        image: 'Fotos/jogodejantar .jpeg',
+        qrcodeImage: 'Fotos/qrcodejogodejantar.jpeg'
+    },
+    {
+        id: 'jogo-de-panelas',
+        name: 'Jogo de Panelas',
+        description: 'Jogo de panelas resistente para cozinhar',
+        price: '699',
+        image: 'Fotos/jogodepanelas.jpeg',
+        qrcodeImage: 'Fotos/qrcodejogodepanelas.jpeg'
+    },
+    {
+        id: 'panelasidade-arroz',
+        name: 'Panela de Arroz',
+        description: 'Panela de arroz prática e rápida',
+        price: '329',
+        image: 'Fotos/panelaarroz.jpeg',
+        qrcodeImage: 'Fotos/qrcodepanelaarroz.jpeg'
+    },
+    {
+        id: 'panela-de-pressao',
+        name: 'Panela de Pressão',
+        description: 'Panela de pressão para cozinhar com rapidez',
+        price: '249',
+        image: 'Fotos/paneladepressao.jpeg',
+        qrcodeImage: 'Fotos/qrcodepaneladepressao.jpeg'
+    },
+    {
+        id: 'utensilios-de-cozinha',
+        name: 'Utensílios de Cozinha',
+        description: 'Utensílios essenciais para preparar receitas',
+        price: '179',
+        image: 'Fotos/utensiliosdecozinha.jpeg',
+        qrcodeImage: 'Fotos/qrcodeutensiliosdecozinha.jpeg'
+    },
+    {
+        id: 'mixer',
+        name: 'Mixer',
+        description: 'Mixer portátil para suas receitas',
+        price: '259',
+        image: 'Fotos/mixer.jpeg',
+        qrcodeImage: 'Fotos/qrcodemixer.jpeg'
+    },
+    {
+        id: 'fruteira',
+        name: 'Fruteira',
+        description: 'Fruteira bonita para decorar a mesa',
+        price: '199',
+        image: 'Fotos/fruteira.jpeg',
+        qrcodeImage: 'Fotos/qrcodefruteira.jpeg'
+    },
+    {
+        id: 'moveis-planejados-cozinha',
+        name: 'Móveis Planejados Cozinha',
+        description: 'Móveis planejados para aproveitar o espaço da cozinha',
+        price: '8999',
+        image: 'Fotos/moveisplanejadoscozinha.jpeg',
+        qrcodeImage: 'Fotos/qrcodemoveisplanejadoscozinha.jpeg'
+    },
+    {
+        id: 'moveis-planejados-quarto',
+        name: 'Móveis Planejados Quarto',
+        description: 'Móveis planejados para quarto com estilo',
+        price: '8999',
+        image: 'Fotos/moveisplanejadosquarto.jpeg',
+        qrcodeImage: 'Fotos/qrcodemoveisplanejadosquarto.jpeg'
+    },
+    {
         id: 'passagem',
         name: 'Passagem',
         description: 'Passagem para viagem de lua de mel',
         price: '1200',
         image: 'Fotos/passagem.jpeg',
         qrcodeImage: 'Fotos/qrcodepassagem.jpeg'
+    },
+    {
+        id: 'passeios-lua-de-mel',
+        name: 'Passeios de Lua de Mel',
+        description: 'Passeios românticos para a lua de mel',
+        price: '2199',
+        image: 'Fotos/passeiosluademel.jpeg',
+        qrcodeImage: 'Fotos/qrocdepasseiosluademel.jpeg'
+    },
+    {
+        id: 'toalha-de-banho',
+        name: 'Toalha de Banho',
+        description: 'Toalha felpuda e macia para o banheiro',
+        price: '159',
+        image: 'Fotos/toalhadebanho.jpeg',
+        qrcodeImage: 'Fotos/qrcodetoalhadebanho.jpeg'
     }
 ];
 
@@ -551,7 +743,7 @@ function createGiftItem(gift, selectedGift) {
     // Adicionar imagem se existir
     if (gift.image) {
         const img = document.createElement('img');
-        img.src = gift.image;
+        img.src = encodeURI(gift.image);
         img.alt = gift.name || 'Presente';
         img.className = 'gift-item-image';
         giftItem.appendChild(img);
@@ -683,7 +875,7 @@ function showGiftQrCode(giftData, selectedBy, selectedEmail) {
         // Exibir imagem do QR code
         if (giftData.qrcodeImage) {
             console.log('Carregando QR code:', giftData.qrcodeImage);
-            imageElement.src = giftData.qrcodeImage;
+            imageElement.src = encodeURI(giftData.qrcodeImage);
             imageElement.alt = `QR Code do ${giftData.name}`;
             imageElement.style.display = 'block';
         } else {
