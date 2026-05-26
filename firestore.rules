@@ -35,6 +35,7 @@ service cloud.firestore {
         && request.resource.data.keys().hasOnly([
           'giftId',
           'selectedBy',
+          'selectedEmail',
           'timestamp'
         ])
         && request.resource.data.giftId == giftId
@@ -44,6 +45,9 @@ service cloud.firestore {
         && request.resource.data.selectedBy is string
         && request.resource.data.selectedBy.size() > 0
         && request.resource.data.selectedBy.size() <= 80
+        && request.resource.data.selectedEmail is string
+        && request.resource.data.selectedEmail.size() > 0
+        && request.resource.data.selectedEmail.size() <= 120
         && request.resource.data.timestamp is timestamp;
 
       allow update, delete: if request.auth != null;

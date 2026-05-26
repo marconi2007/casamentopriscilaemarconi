@@ -24,6 +24,8 @@ const secretLoginTrigger = document.getElementById('secret-login-trigger');
 const authLogoutButton = document.getElementById('auth-logout');
 const authCancelButton = document.getElementById('auth-cancel');
 const authCloseButton = authPopup.querySelector('.popup-close');
+const giftQrcodePopup = document.getElementById('gift-qrcode-popup');
+const giftQrcodeCloseButton = document.getElementById('gift-qrcode-close');
 const testGift = {
     id: 'teste',
     name: 'Teste',
@@ -31,18 +33,106 @@ const testGift = {
     price: '0'
 };
 
+// Presentes padrão com imagens
+const defaultGifts = [
+    {
+        id: 'geladeira',
+        name: 'Geladeira',
+        description: 'Geladeira moderna para sua cozinha',
+        price: '3500',
+        image: 'Fotos/geladeira.jpeg',
+        qrcodeImage: 'Fotos/qrcodegeladeira.jpeg'
+    },
+    {
+        id: 'maquina-lavar',
+        name: 'Máquina de Lavar',
+        description: 'Máquina de lavar com tecnologia avançada',
+        price: '4099',
+        image: 'Fotos/maquina.jpeg',
+        qrcodeImage: 'Fotos/qrcodemaquina.jpeg'
+    },
+    {
+        id: 'microondas',
+        name: 'Microondas',
+        description: 'Microondas prático para sua cozinha',
+        price: '899',
+        image: 'Fotos/microondas.jpeg',
+        qrcodeImage: 'Fotos/qrcodemicroondas.jpeg'
+    },
+    {
+        id: 'forno',
+        name: 'Forno',
+        description: 'Forno elétrico para assados e gratinados',
+        price: '1299',
+        image: 'Fotos/forno.jpeg',
+        qrcodeImage: 'Fotos/qrcodeforno.jpeg'
+    },
+    {
+        id: 'climatizador',
+        name: 'Climatizador',
+        description: 'Climatizador refrescante para dias quentes',
+        price: '749',
+        image: 'Fotos/climatizador.jpeg',
+        qrcodeImage: 'Fotos/qrcodeclimatizador.jpeg'
+    },
+    {
+        id: 'cortinas',
+        name: 'Cortinas',
+        description: 'Cortinas elegantes para sala ou quarto',
+        price: '399',
+        image: 'Fotos/cortinas.jpeg',
+        qrcodeImage: 'Fotos/qrcodecortinas.jpeg'
+    },
+    {
+        id: 'cama',
+        name: 'Cama',
+        description: 'Cama confortável para noites mais tranquilas',
+        price: '1599',
+        image: 'Fotos/cama.jpeg',
+        qrcodeImage: 'Fotos/qrcodecama.jpeg'
+    },
+    {
+        id: 'roupas-de-cama',
+        name: 'Roupas de Cama',
+        description: 'Conjunto de roupas de cama premium',
+        price: '499',
+        image: 'Fotos/roupasdecama.jpeg',
+        qrcodeImage: 'Fotos/qrcoderoupasdecama.jpeg'
+    },
+    {
+        id: 'edredom-queen',
+        name: 'Edredom Queen',
+        description: 'Edredom queen size macio e aconchegante',
+        price: '799',
+        image: 'Fotos/edredonquenn.jpeg',
+        qrcodeImage: 'Fotos/qrcodeedredonqueen.jpeg'
+    },
+    {
+        id: 'passagem',
+        name: 'Passagem',
+        description: 'Passagem para viagem de lua de mel',
+        price: '1200',
+        image: 'Fotos/passagem.jpeg',
+        qrcodeImage: 'Fotos/qrcodepassagem.jpeg'
+    }
+];
+
 // Configuração do EmailJS
 // Preencha estes valores com os dados da sua conta EmailJS.
 const emailjsConfig = {
     publicKey: "e_9h-QCHc2hp9EaBc",
     serviceId: "service_l5smfqp",
-    templateId: "template_4a4ndt6"
+    rsvpTemplateId: "template_4a4ndt6",
+    giftTemplateId: "template_4a4ndt6"
 };
 
 if (window.emailjs && emailjsConfig.publicKey !== "SEU_PUBLIC_KEY") {
     emailjs.init({
         publicKey: emailjsConfig.publicKey
     });
+    console.log('EmailJS inicializado:', emailjsConfig);
+} else {
+    console.warn('EmailJS não foi inicializado. Verifique se o script do EmailJS está carregando corretamente.');
 }
 
 function openAuthModal() {
@@ -108,7 +198,8 @@ async function loadAdminData() {
             ? selectedSnapshot.docs.map(doc => {
                 const item = doc.data();
                 const giftLabel = giftNames[item.giftId] || item.giftId || 'Presente reservado';
-                return `<li><span><strong>${giftLabel}</strong></span><span>${item.selectedBy || 'Anônimo'}</span></li>`;
+                const emailDisplay = item.selectedEmail ? ` (${item.selectedEmail})` : '';
+                return `<li><span><strong>${giftLabel}</strong></span><span>${item.selectedBy || 'Anônimo'}${emailDisplay}</span></li>`;
             }).join('')
             : '<li>Nenhuma reserva de presente encontrada.</li>';
     } catch (error) {
@@ -188,6 +279,22 @@ document.querySelectorAll('#rsvp-popup .popup-close, #rsvp-popup .popup-button')
 document.getElementById('rsvp-popup').addEventListener('click', (event) => {
     if (event.target.id === 'rsvp-popup') {
         closePopup();
+    }
+});
+
+// Event listeners para QR code popup
+function closeGiftQrCodePopup() {
+    giftQrcodePopup.classList.remove('active');
+    giftQrcodePopup.setAttribute('aria-hidden', 'true');
+}
+
+document.querySelectorAll('#gift-qrcode-popup .popup-close, #gift-qrcode-close').forEach(button => {
+    button.addEventListener('click', closeGiftQrCodePopup);
+});
+
+giftQrcodePopup.addEventListener('click', (event) => {
+    if (event.target.id === 'gift-qrcode-popup') {
+        closeGiftQrCodePopup();
     }
 });
 
@@ -314,16 +421,16 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
     const emailIsConfigured = window.emailjs &&
         emailjsConfig.publicKey !== "SEU_PUBLIC_KEY" &&
         emailjsConfig.serviceId !== "SEU_SERVICE_ID" &&
-        emailjsConfig.templateId !== "SEU_TEMPLATE_ID";
+        emailjsConfig.rsvpTemplateId !== "SEU_RSVP_TEMPLATE_ID";
 
     if (!emailIsConfigured) {
-        console.warn('EmailJS ainda não está configurado. Preencha publicKey, serviceId e templateId.');
+        console.warn('EmailJS ainda não está configurado. Preencha publicKey, serviceId e rsvpTemplateId.');
         return;
     }
 
     const attendingText = attending === 'yes' ? 'Sim, vou comparecer' : 'Não vou poder comparecer';
 
-    await emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, {
+    await emailjs.send(emailjsConfig.serviceId, emailjsConfig.rsvpTemplateId, {
         subject: `Confirmação de presença - ${name}`,
         to_email: email,
         to_name: name,
@@ -341,6 +448,40 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
     });
 }
 
+async function sendGiftReservationEmail({ name, email, gift }) {
+    const emailIsConfigured = window.emailjs &&
+        emailjsConfig.publicKey !== "SEU_PUBLIC_KEY" &&
+        emailjsConfig.serviceId !== "SEU_SERVICE_ID" &&
+        emailjsConfig.giftTemplateId !== "SEU_GIFT_TEMPLATE_ID";
+
+    if (!emailIsConfigured) {
+        console.warn('EmailJS ainda não está configurado. Preencha publicKey, serviceId e giftTemplateId.');
+        return;
+    }
+
+    const qrCodeUrl = gift.qrcodeImage
+        ? new URL(gift.qrcodeImage, window.location.href).href
+        : '';
+    const templateParams = {
+        subject: `Reserva de presente - ${gift.name}`,
+        to_email: email,
+        to_name: name,
+        email: email,
+        user_email: email,
+        gift_name: gift.name,
+        gift_description: gift.description,
+        gift_price: `R$ ${gift.price}`,
+        gift_qr_url: qrCodeUrl,
+        qr_code_image: qrCodeUrl,
+        from_name: 'Priscila e Marconi',
+        reply_to: email
+    };
+
+    console.log('Enviando email de reserva de presente:', templateParams);
+    await emailjs.send(emailjsConfig.serviceId, emailjsConfig.giftTemplateId, templateParams);
+    console.log('Email de reserva de presente enviado com sucesso');
+}
+
 // Função para carregar lista de presentes
 async function loadGifts() {
     const giftList = document.getElementById('gift-list');
@@ -352,14 +493,30 @@ async function loadGifts() {
             db.collection('selectedGifts').get()
         ]);
 
-        const gifts = new Map([[testGift.id, testGift]]);
+        const gifts = new Map();
+        // Adiciona presentes padrão
+        defaultGifts.forEach(gift => gifts.set(gift.id, gift));
+        gifts.set(testGift.id, testGift);
+        
         const selectedGifts = {};
 
+        // Adiciona ou mescla presentes do Firebase
         giftSnapshot.forEach(doc => {
-            gifts.set(doc.id, {
+            const firebaseGift = {
                 id: doc.id,
                 ...doc.data()
-            });
+            };
+            
+            // Se o presente já existe como padrão, mescla as propriedades
+            if (gifts.has(doc.id)) {
+                const defaultGift = gifts.get(doc.id);
+                gifts.set(doc.id, {
+                    ...defaultGift,
+                    ...firebaseGift
+                });
+            } else {
+                gifts.set(doc.id, firebaseGift);
+            }
         });
 
         selectedSnapshot.forEach(doc => {
@@ -376,6 +533,9 @@ async function loadGifts() {
         console.error('Erro ao carregar presentes:', error);
         // Fallback: lista estática
         giftList.innerHTML = '';
+        defaultGifts.forEach(gift => {
+            giftList.appendChild(createGiftItem(gift));
+        });
         giftList.appendChild(createGiftItem(testGift));
     }
 }
@@ -388,6 +548,15 @@ function createGiftItem(gift, selectedGift) {
         giftItem.classList.add('gift-item-reserved');
     }
 
+    // Adicionar imagem se existir
+    if (gift.image) {
+        const img = document.createElement('img');
+        img.src = gift.image;
+        img.alt = gift.name || 'Presente';
+        img.className = 'gift-item-image';
+        giftItem.appendChild(img);
+    }
+
     const title = document.createElement('h3');
     title.textContent = gift.name || 'Presente';
 
@@ -395,6 +564,7 @@ function createGiftItem(gift, selectedGift) {
     description.textContent = gift.description || '';
 
     const price = document.createElement('p');
+    price.className = 'gift-price';
     price.textContent = `R$ ${gift.price || '0'}`;
 
     const reservation = document.createElement('div');
@@ -411,12 +581,18 @@ function createGiftItem(gift, selectedGift) {
         nameInput.placeholder = 'Seu nome';
         nameInput.setAttribute('aria-label', `Nome para reservar ${gift.name || 'presente'}`);
 
+        const emailInput = document.createElement('input');
+        emailInput.type = 'email';
+        emailInput.placeholder = 'Seu email';
+        emailInput.setAttribute('aria-label', `Email para reservar ${gift.name || 'presente'}`);
+        emailInput.required = true;
+
         const reserveButton = document.createElement('button');
         reserveButton.type = 'button';
         reserveButton.textContent = 'Reservar';
-        reserveButton.addEventListener('click', () => selectGift(gift.id, nameInput.value));
+        reserveButton.addEventListener('click', () => selectGift(gift.id, nameInput.value, emailInput.value, gift));
 
-        reservation.append(nameInput, reserveButton);
+        reservation.append(nameInput, emailInput, reserveButton);
     }
 
     giftItem.append(title, description, price, reservation);
@@ -424,11 +600,24 @@ function createGiftItem(gift, selectedGift) {
 }
 
 // Função para selecionar presente
-async function selectGift(giftId, selectedBy) {
+async function selectGift(giftId, selectedBy, selectedEmail, giftData) {
     const selectedName = String(selectedBy || '').trim();
+    const selectedEmailTrimmed = String(selectedEmail || '').trim();
 
     if (!selectedName) {
         alert('Digite seu nome para reservar o presente.');
+        return;
+    }
+
+    if (!selectedEmailTrimmed) {
+        alert('Digite seu email para reservar o presente.');
+        return;
+    }
+
+    // Validação básica de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(selectedEmailTrimmed)) {
+        alert('Digite um email válido.');
         return;
     }
 
@@ -445,12 +634,28 @@ async function selectGift(giftId, selectedBy) {
             transaction.set(selectedGiftRef, {
                 giftId,
                 selectedBy: selectedName,
+                selectedEmail: selectedEmailTrimmed,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             });
         });
 
-        alert('Presente reservado!');
-        await loadGifts();
+        try {
+            await sendGiftReservationEmail({
+                name: selectedName,
+                email: selectedEmailTrimmed,
+                gift: giftData
+            });
+        } catch (emailError) {
+            console.error('Erro ao enviar email de reserva de presente:', emailError);
+        }
+
+        // Mostrar QR code
+        showGiftQrCode(giftData, selectedName, selectedEmailTrimmed);
+        
+        // Recarregar presentes após sucesso
+        setTimeout(() => {
+            loadGifts();
+        }, 2000);
     } catch (error) {
         console.error('Erro ao selecionar presente:', error);
         const permissionDenied = error && error.code === 'permission-denied';
@@ -459,7 +664,38 @@ async function selectGift(giftId, selectedBy) {
             : permissionDenied
                 ? 'Erro de permissão no Firebase. Verifique as regras do Firestore para selectedGifts.'
                 : 'Erro ao reservar presente. Tente novamente.');
-        await loadGifts();
+    }
+}
+
+// Função para exibir QR code
+function showGiftQrCode(giftData, selectedBy, selectedEmail) {
+    try {
+        const messageElement = document.getElementById('gift-qrcode-message');
+        const imageElement = document.getElementById('gift-qrcode-image');
+        const qrcodePopup = document.getElementById('gift-qrcode-popup');
+        const qrcodeError = document.getElementById('gift-qrcode-error');
+        
+        messageElement.textContent = `Presente "${giftData.name}" reservado por ${selectedBy}!`;
+        
+        // Limpar erro anterior
+        if (qrcodeError) qrcodeError.style.display = 'none';
+        
+        // Exibir imagem do QR code
+        if (giftData.qrcodeImage) {
+            console.log('Carregando QR code:', giftData.qrcodeImage);
+            imageElement.src = giftData.qrcodeImage;
+            imageElement.alt = `QR Code do ${giftData.name}`;
+            imageElement.style.display = 'block';
+        } else {
+            console.warn('Nenhuma imagem de QR code definida para:', giftData.name);
+            imageElement.style.display = 'none';
+            if (qrcodeError) qrcodeError.style.display = 'block';
+        }
+        
+        qrcodePopup.classList.add('active');
+        qrcodePopup.setAttribute('aria-hidden', 'false');
+    } catch (error) {
+        console.error('Erro em showGiftQrCode:', error);
     }
 }
 

@@ -492,6 +492,18 @@ button:active {
     border: 1px solid rgba(211, 168, 154, 0.28);
     box-shadow: 0 8px 22px rgba(169, 120, 86, 0.12);
     transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.gift-item-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: block;
+    background: white;
 }
 
 .gift-item:hover {
@@ -520,6 +532,31 @@ button:active {
 .gift-reserved-message {
     color: var(--rose-cinnamon-700);
     font-weight: bold;
+}
+
+.gift-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--rose-cinnamon-600);
+    margin: 0.5rem 0;
+}
+
+.gift-qrcode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid var(--rose-cinnamon-200);
+}
+
+.gift-qrcode-instruction {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--rose-cinnamon-600);
+    margin: 0.5rem 0;
 }
 
 .location-address {

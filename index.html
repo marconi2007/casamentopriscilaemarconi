@@ -138,6 +138,23 @@
         </div>
     </div>
 
+    <div id="gift-qrcode-popup" class="popup-overlay" aria-hidden="true">
+        <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="gift-qrcode-title">
+            <button class="popup-close" type="button" aria-label="Fechar QR code">&times;</button>
+            <span class="popup-icon">💳</span>
+            <h2 id="gift-qrcode-title">Presente Reservado!</h2>
+            <p id="gift-qrcode-message"></p>
+            <div id="gift-qrcode-container" class="gift-qrcode-container">
+                <img id="gift-qrcode-image" src="" alt="QR Code para pagamento" onerror="this.style.display='none'; document.getElementById('gift-qrcode-error').style.display='block';" style="max-width: 280px; width: 100%; height: auto;">
+                <div id="gift-qrcode-error" style="display: none; color: red; text-align: center;">
+                    Imagem do QR code não encontrada
+                </div>
+            </div>
+            <p id="gift-qrcode-instruction" class="gift-qrcode-instruction">Escaneie o QR code para realizar o pagamento</p>
+            <button class="popup-button" type="button" id="gift-qrcode-close">Fechar</button>
+        </div>
+    </div>
+
     <div id="auth-popup" class="popup-overlay" aria-hidden="true">
         <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="auth-title">
             <button class="popup-close" type="button" aria-label="Fechar login secreto">&times;</button>
