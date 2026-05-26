@@ -26,6 +26,21 @@ const authCancelButton = document.getElementById('auth-cancel');
 const authCloseButton = authPopup.querySelector('.popup-close');
 const giftQrcodePopup = document.getElementById('gift-qrcode-popup');
 const giftQrcodeCloseButton = document.getElementById('gift-qrcode-close');
+const backgroundMusic = document.getElementById('background-music');
+
+function playBackgroundMusic() {
+    if (!backgroundMusic || !backgroundMusic.paused) {
+        return;
+    }
+
+    backgroundMusic.volume = 0.7;
+    backgroundMusic.play().catch(() => {
+        document.addEventListener('click', playBackgroundMusic, { once: true });
+        document.addEventListener('touchstart', playBackgroundMusic, { once: true });
+    });
+}
+
+window.addEventListener('load', playBackgroundMusic);
 
 // Presentes padrão com imagens
 const defaultGifts = [
