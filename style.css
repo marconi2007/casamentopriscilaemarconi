@@ -2,19 +2,19 @@
 
 /* Reset básico */
 :root {
-    --rose-cinnamon-50: #f7ebe7;
-    --rose-cinnamon-100: #f0d5ce;
-    --rose-cinnamon-200: #e1b1a0;
-    --rose-cinnamon-300: #ce846f;
-    --rose-cinnamon-400: #ba6652;
-    --rose-cinnamon-500: #9e4f41;
-    --rose-cinnamon-600: #844030;
-    --rose-cinnamon-700: #6b3228;
-    --rose-cinnamon-800: #52271f;
-    --rose-cinnamon-900: #3d1d17;
+    --rose-cinnamon-50: #fff3e8;
+    --rose-cinnamon-100: #f8d8ba;
+    --rose-cinnamon-200: #efbd8a;
+    --rose-cinnamon-300: #e6a35f;
+    --rose-cinnamon-400: #dc8c3f;
+    --rose-cinnamon-500: #d47e30;
+    --rose-cinnamon-600: #b86524;
+    --rose-cinnamon-700: #934f1c;
+    --rose-cinnamon-800: #6e3a15;
+    --rose-cinnamon-900: #46240d;
     --warm-cream: #fff3ee;
     --text-warm: #3f2a24;
-    --shadow-rose: rgba(158, 79, 65, 0.22);
+    --shadow-rose: rgba(212, 126, 48, 0.22);
 }
 
 .wedding-couple-name {
@@ -33,7 +33,7 @@ body {
     line-height: 1.6;
     color: var(--text-warm);
     background:
-        radial-gradient(circle at top left, rgba(211, 168, 154, 0.28), transparent 34rem),
+        radial-gradient(circle at top left, rgba(212, 126, 48, 0.28), transparent 34rem),
         linear-gradient(to bottom, #ffffff, var(--rose-cinnamon-50));
     overflow-x: hidden;
 }
@@ -89,7 +89,7 @@ section {
         linear-gradient(rgba(28, 27, 22, 0.72), rgba(28, 27, 22, 0.72)),
         url('nos.jpeg') center center/cover no-repeat,
         radial-gradient(circle at 52% 28%, rgba(247, 235, 229, 0.42), transparent 7rem),
-        radial-gradient(circle at 64% 88%, rgba(158, 79, 65, 0.38), transparent 9rem),
+        radial-gradient(circle at 64% 88%, rgba(212, 126, 48, 0.38), transparent 9rem),
         linear-gradient(135deg, #2a201f, #4f372f);
     transition: opacity 0.55s ease, visibility 0.55s ease, transform 0.55s ease;
 }
@@ -134,10 +134,10 @@ section {
 
 .admin-card {
     background: rgba(255, 243, 238, 0.96);
-    border: 1px solid rgba(158, 79, 65, 0.22);
+    border: 1px solid rgba(212, 126, 48, 0.22);
     border-radius: 8px;
     padding: 1rem;
-    box-shadow: 0 12px 24px rgba(158, 79, 65, 0.12);
+    box-shadow: 0 12px 24px rgba(212, 126, 48, 0.12);
     max-height: 320px;
     overflow: auto;
 }
@@ -161,7 +161,7 @@ section {
     align-items: start;
     gap: 0.75rem;
     padding: 0.7rem 0;
-    border-bottom: 1px solid rgba(158, 79, 65, 0.14);
+    border-bottom: 1px solid rgba(212, 126, 48, 0.14);
     font-size: 0.95rem;
 }
 
@@ -235,7 +235,7 @@ section {
     width: 18rem;
     height: 18rem;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(169, 120, 86, 0.46), transparent 68%);
+    background: radial-gradient(circle, rgba(212, 126, 48, 0.46), transparent 68%);
     filter: blur(6px);
 }
 
@@ -289,9 +289,9 @@ section {
     font-size: 1rem;
     font-weight: 800;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.42);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 225, 218, 0.3), rgba(169, 120, 86, 0.2));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 225, 218, 0.3), rgba(212, 126, 48, 0.2));
     box-shadow:
-        0 0 22px rgba(211, 168, 154, 0.3),
+        0 0 22px rgba(212, 126, 48, 0.3),
         inset 0 1px 1px rgba(255, 255, 255, 0.32);
     backdrop-filter: blur(8px);
 }
@@ -372,7 +372,7 @@ section {
     border-radius: 999px;
     font-weight: bold;
     padding: 0.9rem 1.3rem;
-    box-shadow: 0 8px 18px rgba(169, 120, 86, 0.14);
+    box-shadow: 0 8px 18px rgba(212, 126, 48, 0.14);
     position: relative;
     overflow: hidden;
     transform: translateY(0) scale(1);
@@ -396,7 +396,7 @@ button::before {
 .tab-button.active {
     background: linear-gradient(135deg, var(--rose-cinnamon-700), var(--rose-cinnamon-500), var(--rose-cinnamon-200));
     color: white;
-    box-shadow: 0 14px 28px rgba(169, 120, 86, 0.3);
+    box-shadow: 0 14px 28px rgba(212, 126, 48, 0.3);
     transform: translateY(-4px) scale(1.03);
 }
 
@@ -409,9 +409,9 @@ button:hover::before {
 .tab-panel {
     display: none;
     background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(211, 168, 154, 0.38);
+    border: 1px solid rgba(212, 126, 48, 0.38);
     border-radius: 16px;
-    box-shadow: 0 10px 28px rgba(169, 120, 86, 0.16);
+    box-shadow: 0 10px 28px rgba(212, 126, 48, 0.16);
     padding: 2rem;
 }
 
@@ -439,7 +439,7 @@ button:hover::before {
 
 input, select, button {
     padding: 0.75rem;
-    border: 1px solid rgba(211, 168, 154, 0.45);
+    border: 1px solid rgba(212, 126, 48, 0.45);
     border-radius: 5px;
     font-size: 1rem;
 }
@@ -452,7 +452,7 @@ select {
 
 input:focus,
 select:focus {
-    outline: 2px solid rgba(211, 168, 154, 0.45);
+    outline: 2px solid rgba(212, 126, 48, 0.45);
     border-color: var(--rose-cinnamon-300);
 }
 
@@ -461,7 +461,7 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-    box-shadow: 0 8px 18px rgba(169, 120, 86, 0.2);
+    box-shadow: 0 8px 18px rgba(212, 126, 48, 0.2);
     position: relative;
     overflow: hidden;
     transform: translateY(0) scale(1);
@@ -469,7 +469,7 @@ button {
 }
 
 button:hover {
-    box-shadow: 0 14px 30px rgba(169, 120, 86, 0.35);
+    box-shadow: 0 14px 30px rgba(212, 126, 48, 0.35);
     filter: brightness(1.05);
     transform: translateY(-4px) scale(1.03);
 }
@@ -489,8 +489,8 @@ button:active {
     background: var(--warm-cream);
     padding: 1rem;
     border-radius: 10px;
-    border: 1px solid rgba(211, 168, 154, 0.28);
-    box-shadow: 0 8px 22px rgba(169, 120, 86, 0.12);
+    border: 1px solid rgba(212, 126, 48, 0.28);
+    box-shadow: 0 8px 22px rgba(212, 126, 48, 0.12);
     transition: transform 0.3s, box-shadow 0.3s;
     overflow: hidden;
 }
@@ -508,7 +508,7 @@ button:active {
 
 .gift-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 14px 28px rgba(169, 120, 86, 0.2);
+    box-shadow: 0 14px 28px rgba(212, 126, 48, 0.2);
 }
 
 .gift-item-reserved {
@@ -567,8 +567,8 @@ button:active {
 .map-container {
     overflow: hidden;
     border-radius: 14px;
-    border: 2px solid rgba(211, 168, 154, 0.45);
-    box-shadow: 0 10px 24px rgba(169, 120, 86, 0.16);
+    border: 2px solid rgba(212, 126, 48, 0.45);
+    box-shadow: 0 10px 24px rgba(212, 126, 48, 0.16);
 }
 
 .map-container iframe {
@@ -602,7 +602,7 @@ button:active {
 .popup-card {
     width: min(100%, 26rem);
     padding: 2rem;
-    border: 1px solid rgba(211, 168, 154, 0.52);
+    border: 1px solid rgba(212, 126, 48, 0.52);
     border-radius: 22px;
     background:
         radial-gradient(circle at top, rgba(245, 233, 228, 0.34), transparent 12rem),
@@ -641,7 +641,7 @@ button:active {
     background: linear-gradient(135deg, var(--rose-cinnamon-700), var(--rose-cinnamon-500), var(--rose-cinnamon-200));
     color: #ffffff;
     font-size: 1.8rem;
-    box-shadow: 0 10px 24px rgba(169, 120, 86, 0.24);
+    box-shadow: 0 10px 24px rgba(212, 126, 48, 0.24);
 }
 
 .popup-card h2 {
@@ -729,7 +729,7 @@ footer {
     background: #f0f0f0;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 12px 40px rgba(158, 79, 65, 0.25);
+    box-shadow: 0 12px 40px rgba(212, 126, 48, 0.25);
 }
 
 .carousel-slide {

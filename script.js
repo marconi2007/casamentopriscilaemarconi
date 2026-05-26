@@ -26,12 +26,6 @@ const authCancelButton = document.getElementById('auth-cancel');
 const authCloseButton = authPopup.querySelector('.popup-close');
 const giftQrcodePopup = document.getElementById('gift-qrcode-popup');
 const giftQrcodeCloseButton = document.getElementById('gift-qrcode-close');
-const testGift = {
-    id: 'teste',
-    name: 'Teste',
-    description: 'Presente de teste',
-    price: '0'
-};
 
 // Presentes padrão com imagens
 const defaultGifts = [
@@ -39,7 +33,7 @@ const defaultGifts = [
         id: 'airfryer',
         name: 'Airfryer',
         description: 'Airfryer prática para fritar com menos óleo',
-        price: '599',
+        price: '400',
         image: 'Fotos/Airfryer.jpeg',
         qrcodeImage: 'Fotos/qrcodeAirfryer.jpeg'
     },
@@ -47,7 +41,7 @@ const defaultGifts = [
         id: 'assadeiras',
         name: 'Assadeiras',
         description: 'Conjunto de assadeiras versáteis para forno',
-        price: '249',
+        price: '180',
         image: 'Fotos/assadeiras.jpeg',
         qrcodeImage: 'Fotos/qrcodeassadeiras.jpeg'
     },
@@ -55,7 +49,7 @@ const defaultGifts = [
         id: 'boleira-e-queijeira',
         name: 'Boleira e Queijeira',
         description: 'Conjunto elegante para servir bolos e queijos',
-        price: '329',
+        price: '150',
         image: 'Fotos/boleiraequeijeira.jpeg',
         qrcodeImage: 'Fotos/qrcodeboleiraequeijeira.jpeg'
     },
@@ -63,7 +57,7 @@ const defaultGifts = [
         id: 'cafeteira',
         name: 'Cafeteira',
         description: 'Cafeteira para começar o dia com aroma fresco',
-        price: '349',
+        price: '289',
         image: 'Fotos/cafeteira.jpeg',
         qrcodeImage: 'Fotos/qrcodecafeteira.jpeg'
     },
@@ -71,7 +65,7 @@ const defaultGifts = [
         id: 'geladeira',
         name: 'Geladeira',
         description: 'Geladeira moderna para sua cozinha',
-        price: '3500',
+        price: '3199',
         image: 'Fotos/geladeira.jpeg',
         qrcodeImage: 'Fotos/qrcodegeladeira.jpeg'
     },
@@ -87,7 +81,7 @@ const defaultGifts = [
         id: 'microondas',
         name: 'Microondas',
         description: 'Microondas prático para sua cozinha',
-        price: '899',
+        price: '550',
         image: 'Fotos/microondas.jpeg',
         qrcodeImage: 'Fotos/qrcodemicroondas.jpeg'
     },
@@ -95,7 +89,7 @@ const defaultGifts = [
         id: 'forno',
         name: 'Forno',
         description: 'Forno elétrico para assados e gratinados',
-        price: '1299',
+        price: '400',
         image: 'Fotos/forno.jpeg',
         qrcodeImage: 'Fotos/qrcodeforno.jpeg'
     },
@@ -103,7 +97,7 @@ const defaultGifts = [
         id: 'climatizador',
         name: 'Climatizador',
         description: 'Climatizador refrescante para dias quentes',
-        price: '749',
+        price: '349',
         image: 'Fotos/climatizador.jpeg',
         qrcodeImage: 'Fotos/qrcodeclimatizador.jpeg'
     },
@@ -111,7 +105,7 @@ const defaultGifts = [
         id: 'depurador-de-ar',
         name: 'Depurador de Ar',
         description: 'Depurador de ar para uma cozinha mais limpa',
-        price: '1199',
+        price: '350',
         image: 'Fotos/depuradordear.jpeg',
         qrcodeImage: 'Fotos/qrcodedepuradordear.jpeg'
     },
@@ -119,7 +113,7 @@ const defaultGifts = [
         id: 'cortinas',
         name: 'Cortinas',
         description: 'Cortinas elegantes para sala ou quarto',
-        price: '399',
+        price: '299,90',
         image: 'Fotos/cortinas.jpeg',
         qrcodeImage: 'Fotos/qrcodecortinas.jpeg'
     },
@@ -127,7 +121,7 @@ const defaultGifts = [
         id: 'cama',
         name: 'Cama',
         description: 'Cama confortável para noites mais tranquilas',
-        price: '1599',
+        price: '1900',
         image: 'Fotos/cama.jpeg',
         qrcodeImage: 'Fotos/qrcodecama.jpeg'
     },
@@ -135,7 +129,7 @@ const defaultGifts = [
         id: 'roupas-de-cama',
         name: 'Roupas de Cama',
         description: 'Conjunto de roupas de cama premium',
-        price: '499',
+        price: '180',
         image: 'Fotos/roupasdecama.jpeg',
         qrcodeImage: 'Fotos/qrcoderoupasdecama.jpeg'
     },
@@ -143,7 +137,7 @@ const defaultGifts = [
         id: 'edredom-queen',
         name: 'Edredom Queen',
         description: 'Edredom queen size macio e aconchegante',
-        price: '799',
+        price: '229',
         image: 'Fotos/edredonquenn.jpeg',
         qrcodeImage: 'Fotos/qrcodeedredonqueen.jpeg'
     },
@@ -151,7 +145,7 @@ const defaultGifts = [
         id: 'sofa',
         name: 'Sofá',
         description: 'Sofá confortável para a sala',
-        price: '2399',
+        price: '1800',
         image: 'Fotos/sofa.jpeg',
         qrcodeImage: 'Fotos/qrcodesofa.jpeg'
     },
@@ -159,7 +153,7 @@ const defaultGifts = [
         id: 'mesa',
         name: 'Mesa',
         description: 'Mesa elegante para a sala de jantar',
-        price: '1299',
+        price: '1700',
         image: 'Fotos/mesa.jpeg',
         qrcodeImage: 'Fotos/qrcodemesa.jpeg'
     },
@@ -167,7 +161,7 @@ const defaultGifts = [
         id: 'tapete-para-sala',
         name: 'Tapete para Sala',
         description: 'Tapete aconchegante para a sala',
-        price: '399',
+        price: '150',
         image: 'Fotos/tapeteparasala.jpeg',
         qrcodeImage: 'Fotos/qrcodetapeteparasala.jpeg'
     },
@@ -175,7 +169,7 @@ const defaultGifts = [
         id: 'tv',
         name: 'TV',
         description: 'TV para momentos de cinema em casa',
-        price: '2399',
+        price: '2100',
         image: 'Fotos/tv.jpeg',
         qrcodeImage: 'Fotos/qrcodetv.jpeg'
     },
@@ -183,7 +177,7 @@ const defaultGifts = [
         id: 'talheres',
         name: 'Talheres',
         description: 'Jogo de talheres elegante para a mesa',
-        price: '299',
+        price: '327',
         image: 'Fotos/talheres.jpeg',
         qrcodeImage: 'Fotos/qrcodetalheres.jpeg'
     },
@@ -191,7 +185,7 @@ const defaultGifts = [
         id: 'tacas-de-sobremesa',
         name: 'Taças de Sobremesa',
         description: 'Conjunto de taças delicadas para sobremesa',
-        price: '249',
+        price: '80',
         image: 'Fotos/tacasdesobremesa.jpeg',
         qrcodeImage: 'Fotos/qrcodetacasdesobremesa.jpeg'
     },
@@ -199,7 +193,7 @@ const defaultGifts = [
         id: 'jogo-de-copos',
         name: 'Jogo de Copos',
         description: 'Jogo de copos para bebidas e festas',
-        price: '199',
+        price: '40',
         image: 'Fotos/jogodecopos.jpeg',
         qrcodeImage: 'Fotos/qrcodejogodecopos.jpeg'
     },
@@ -207,7 +201,7 @@ const defaultGifts = [
         id: 'jogo-de-facas',
         name: 'Jogo de Facas',
         description: 'Jogo completo de facas para cozinha',
-        price: '349',
+        price: '90',
         image: 'Fotos/jogodefacas.jpeg',
         qrcodeImage: 'Fotos/qrcodejogodefacas.jpeg'
     },
@@ -215,7 +209,7 @@ const defaultGifts = [
         id: 'jogo-de-jantar',
         name: 'Jogo de Jantar',
         description: 'Jogo de jantar completo para receber amigos',
-        price: '599',
+        price: '250',
         image: 'Fotos/jogodejantar .jpeg',
         qrcodeImage: 'Fotos/qrcodejogodejantar.jpeg'
     },
@@ -223,7 +217,7 @@ const defaultGifts = [
         id: 'jogo-de-panelas',
         name: 'Jogo de Panelas',
         description: 'Jogo de panelas resistente para cozinhar',
-        price: '699',
+        price: '550',
         image: 'Fotos/jogodepanelas.jpeg',
         qrcodeImage: 'Fotos/qrcodejogodepanelas.jpeg'
     },
@@ -231,7 +225,7 @@ const defaultGifts = [
         id: 'panelasidade-arroz',
         name: 'Panela de Arroz',
         description: 'Panela de arroz prática e rápida',
-        price: '329',
+        price: '200',
         image: 'Fotos/panelaarroz.jpeg',
         qrcodeImage: 'Fotos/qrcodepanelaarroz.jpeg'
     },
@@ -239,7 +233,7 @@ const defaultGifts = [
         id: 'panela-de-pressao',
         name: 'Panela de Pressão',
         description: 'Panela de pressão para cozinhar com rapidez',
-        price: '249',
+        price: '100',
         image: 'Fotos/paneladepressao.jpeg',
         qrcodeImage: 'Fotos/qrcodepaneladepressao.jpeg'
     },
@@ -247,7 +241,7 @@ const defaultGifts = [
         id: 'utensilios-de-cozinha',
         name: 'Utensílios de Cozinha',
         description: 'Utensílios essenciais para preparar receitas',
-        price: '179',
+        price: '140',
         image: 'Fotos/utensiliosdecozinha.jpeg',
         qrcodeImage: 'Fotos/qrcodeutensiliosdecozinha.jpeg'
     },
@@ -255,7 +249,7 @@ const defaultGifts = [
         id: 'mixer',
         name: 'Mixer',
         description: 'Mixer portátil para suas receitas',
-        price: '259',
+        price: '180',
         image: 'Fotos/mixer.jpeg',
         qrcodeImage: 'Fotos/qrcodemixer.jpeg'
     },
@@ -263,7 +257,7 @@ const defaultGifts = [
         id: 'fruteira',
         name: 'Fruteira',
         description: 'Fruteira bonita para decorar a mesa',
-        price: '199',
+        price: '80',
         image: 'Fotos/fruteira.jpeg',
         qrcodeImage: 'Fotos/qrcodefruteira.jpeg'
     },
@@ -271,7 +265,7 @@ const defaultGifts = [
         id: 'moveis-planejados-cozinha',
         name: 'Móveis Planejados Cozinha',
         description: 'Móveis planejados para aproveitar o espaço da cozinha',
-        price: '8999',
+        price: '5000',
         image: 'Fotos/moveisplanejadoscozinha.jpeg',
         qrcodeImage: 'Fotos/qrcodemoveisplanejadoscozinha.jpeg'
     },
@@ -279,7 +273,7 @@ const defaultGifts = [
         id: 'moveis-planejados-quarto',
         name: 'Móveis Planejados Quarto',
         description: 'Móveis planejados para quarto com estilo',
-        price: '8999',
+        price: '10000',
         image: 'Fotos/moveisplanejadosquarto.jpeg',
         qrcodeImage: 'Fotos/qrcodemoveisplanejadosquarto.jpeg'
     },
@@ -287,7 +281,7 @@ const defaultGifts = [
         id: 'passagem',
         name: 'Passagem',
         description: 'Passagem para viagem de lua de mel',
-        price: '1200',
+        price: '800',
         image: 'Fotos/passagem.jpeg',
         qrcodeImage: 'Fotos/qrcodepassagem.jpeg'
     },
@@ -295,7 +289,7 @@ const defaultGifts = [
         id: 'passeios-lua-de-mel',
         name: 'Passeios de Lua de Mel',
         description: 'Passeios românticos para a lua de mel',
-        price: '2199',
+        price: '3000',
         image: 'Fotos/passeiosluademel.jpeg',
         qrcodeImage: 'Fotos/qrocdepasseiosluademel.jpeg'
     },
@@ -303,7 +297,7 @@ const defaultGifts = [
         id: 'toalha-de-banho',
         name: 'Toalha de Banho',
         description: 'Toalha felpuda e macia para o banheiro',
-        price: '159',
+        price: '200',
         image: 'Fotos/toalhadebanho.jpeg',
         qrcodeImage: 'Fotos/qrcodetoalhadebanho.jpeg'
     }
@@ -372,7 +366,6 @@ async function loadAdminData() {
         ]);
 
         const giftNames = {};
-        giftNames[testGift.id] = testGift.name;
         giftsSnapshot.forEach(doc => {
             giftNames[doc.id] = doc.data().name || 'Presente';
         });
@@ -688,7 +681,6 @@ async function loadGifts() {
         const gifts = new Map();
         // Adiciona presentes padrão
         defaultGifts.forEach(gift => gifts.set(gift.id, gift));
-        gifts.set(testGift.id, testGift);
         
         const selectedGifts = {};
 
@@ -728,7 +720,6 @@ async function loadGifts() {
         defaultGifts.forEach(gift => {
             giftList.appendChild(createGiftItem(gift));
         });
-        giftList.appendChild(createGiftItem(testGift));
     }
 }
 
