@@ -16,12 +16,5 @@ Convidados: {{guests}}
 Nomes dos convidados: {{guest_names}}
 Data: {{wedding_date}}
 
-Presente reservado
--------------------
-Presente: {{gift_name}}
-Descrição: {{gift_description}}
-Valor: {{gift_price}}
-QR Code: {{gift_qr_url}}
-
 Com carinho,
 {{couple_names}}

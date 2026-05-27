@@ -1,0 +1,21 @@
+Marconi & Priscila
+Presente reservado
+
+Olá, {{to_name}}!
+
+Recebemos com muito carinho a sua reserva de presente.
+Obrigado por fazer parte desse momento tão especial para nós.
+
+Dados do presente
+-----------------
+Presente: {{gift_name}}
+Descrição: {{gift_description}}
+Valor: {{gift_price}}
+
+Pagamento
+---------
+{{payment_instruction}}
+QR Code: {{gift_qr_url}}
+
+Com carinho,
+{{couple_names}}

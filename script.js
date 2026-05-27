@@ -277,6 +277,78 @@ const defaultGifts = [
         qrcodeImage: 'Fotos/qrcodefruteira.jpeg'
     },
     {
+        id: 'batedeira',
+        name: 'Batedeira',
+        description: 'Batedeira prática para preparar receitas e massas',
+        price: '220',
+        image: 'Fotos/batedeira.jpeg',
+        qrcodeImage: 'Fotos/qrcodebatedeira.jpeg'
+    },
+    {
+        id: 'bule',
+        name: 'Bule',
+        description: 'Bule elegante para servir chás e cafés',
+        price: '90',
+        image: 'Fotos/bule.jpeg',
+        qrcodeImage: 'Fotos/qrcodebule.jpeg'
+    },
+    {
+        id: 'ferro',
+        name: 'Ferro',
+        description: 'Ferro de passar roupa com mais praticidade',
+        price: '130',
+        image: 'Fotos/ferro.jpeg',
+        qrcodeImage: 'Fotos/qrcodeferro.jpeg'
+    },
+    {
+        id: 'filtro-de-agua',
+        name: 'Filtro de Água',
+        description: 'Filtro de água para uma rotina mais saudável',
+        price: '160',
+        image: 'Fotos/filtrodeagua.jpeg',
+        qrcodeImage: 'Fotos/qrcodefiltrodeagua.jpeg'
+    },
+    {
+        id: 'garrafa-de-cafe',
+        name: 'Garrafa de Café',
+        description: 'Garrafa térmica para manter o café quente',
+        price: '70',
+        image: 'Fotos/garrafadecafe.jpeg',
+        qrcodeImage: 'Fotos/qrcodegarrafadecafe.jpeg'
+    },
+    {
+        id: 'jogo-de-bandejas',
+        name: 'Jogo de Bandejas',
+        description: 'Conjunto de bandejas para servir com estilo',
+        price: '120',
+        image: 'Fotos/jogodebandejas.jpeg',
+        qrcodeImage: 'Fotos/qrcodejogodebandejas.jpeg'
+    },
+    {
+        id: 'jogo-de-tigelas',
+        name: 'Jogo de Tigelas',
+        description: 'Jogo de tigelas versátil para o dia a dia',
+        price: '95',
+        image: 'Fotos/jogodetigelas.jpeg',
+        qrcodeImage: 'Fotos/qrcodejogodetigelas.jpeg'
+    },
+    {
+        id: 'porta-temperos',
+        name: 'Porta Temperos',
+        description: 'Porta temperos organizado para a cozinha',
+        price: '85',
+        image: 'Fotos/portatemperos.jpeg',
+        qrcodeImage: 'Fotos/qrcodeportatemperos.jpeg'
+    },
+    {
+        id: 'tábua-de-frios',
+        name: 'Tábua de Frios',
+        description: 'Tábua elegante para servir frios e petiscos',
+        price: '110',
+        image: 'Fotos/tabuadefrios.jpeg',
+        qrcodeImage: 'Fotos/qrcodetabuadefrios.jpeg'
+    },
+    {
         id: 'moveis-planejados-cozinha',
         name: 'Móveis Planejados Cozinha',
         description: 'Móveis planejados para aproveitar o espaço da cozinha',
@@ -324,7 +396,7 @@ const emailjsConfig = {
     publicKey: "e_9h-QCHc2hp9EaBc",
     serviceId: "service_l5smfqp",
     rsvpTemplateId: "template_4a4ndt6",
-    giftTemplateId: "template_4a4ndt6"
+    giftTemplateId: "template_h20b92e"
 };
 
 if (window.emailjs && emailjsConfig.publicKey !== "SEU_PUBLIC_KEY") {
@@ -652,10 +724,11 @@ async function sendGiftReservationEmail({ name, email, gift }) {
     const emailIsConfigured = window.emailjs &&
         emailjsConfig.publicKey !== "SEU_PUBLIC_KEY" &&
         emailjsConfig.serviceId !== "SEU_SERVICE_ID" &&
-        emailjsConfig.giftTemplateId !== "SEU_GIFT_TEMPLATE_ID";
+        emailjsConfig.giftTemplateId !== "SEU_GIFT_TEMPLATE_ID" &&
+        emailjsConfig.giftTemplateId !== emailjsConfig.rsvpTemplateId;
 
     if (!emailIsConfigured) {
-        console.warn('EmailJS ainda não está configurado. Preencha publicKey, serviceId e giftTemplateId.');
+        console.warn('EmailJS de presente ainda não está configurado. Preencha giftTemplateId com um template diferente do RSVP.');
         return;
     }
 
@@ -673,13 +746,26 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         gift_price: `R$ ${gift.price}`,
         gift_qr_url: qrCodeUrl,
         qr_code_image: qrCodeUrl,
+        couple_names: 'Priscila e Marconi',
+        payment_instruction: 'Escaneie o QR Code para realizar o pagamento do presente reservado.',
         from_name: 'Priscila e Marconi',
         reply_to: email
     };
 
-    console.log('Enviando email de reserva de presente:', templateParams);
-    await emailjs.send(emailjsConfig.serviceId, emailjsConfig.giftTemplateId, templateParams);
-    console.log('Email de reserva de presente enviado com sucesso');
+    console.log('Enviando email de reserva de presente com template:', emailjsConfig.giftTemplateId, templateParams);
+
+    try {
+        await emailjs.send(
+            emailjsConfig.serviceId,
+            emailjsConfig.giftTemplateId,
+            templateParams,
+            emailjsConfig.publicKey
+        );
+        console.log('Email de reserva de presente enviado com sucesso');
+    } catch (error) {
+        console.error('Falha ao enviar email de reserva de presente:', error);
+        throw new Error('Não foi possível enviar o email de confirmação. Verifique a configuração do EmailJS.');
+    }
 }
 
 // Função para carregar lista de presentes
@@ -845,6 +931,7 @@ async function selectGift(giftId, selectedBy, selectedEmail, giftData) {
             });
         } catch (emailError) {
             console.error('Erro ao enviar email de reserva de presente:', emailError);
+            alert(emailError.message || 'Não foi possível enviar o email de confirmação do presente.');
         }
 
         // Mostrar QR code
