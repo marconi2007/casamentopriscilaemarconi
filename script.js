@@ -391,21 +391,43 @@ const defaultGifts = [
 ];
 
 // Configuração do EmailJS
-// Preencha estes valores com os dados da sua conta EmailJS.
+// Mantidos os IDs e chaves já configurados para cada fluxo do sistema.
 const emailjsConfig = {
     publicKey: "e_9h-QCHc2hp9EaBc",
+    privateKey: "cF4elVHxiflv2AjwZtZlN",
     serviceId: "service_l5smfqp",
     rsvpTemplateId: "template_4a4ndt6",
     giftTemplateId: "template_h20b92e"
 };
 
-if (window.emailjs && emailjsConfig.publicKey !== "SEU_PUBLIC_KEY") {
-    emailjs.init({
+function isEmailJsReady() {
+    return Boolean(window.emailjs) &&
+        typeof window.emailjs.send === 'function' &&
+        emailjsConfig.publicKey &&
+        emailjsConfig.publicKey !== 'SEU_PUBLIC_KEY' &&
+        emailjsConfig.serviceId &&
+        emailjsConfig.serviceId !== 'SEU_SERVICE_ID';
+}
+
+function getEmailJsOptions() {
+    return {
         publicKey: emailjsConfig.publicKey
-    });
-    console.log('EmailJS inicializado:', emailjsConfig);
+    };
+}
+
+function logEmailJsStatus(label) {
+    if (isEmailJsReady()) {
+        console.log(`[EmailJS] ${label} pronto.`, emailjsConfig);
+    } else {
+        console.warn(`[EmailJS] ${label} não está disponível. Verifique a configuração do EmailJS.`);
+    }
+}
+
+if (window.emailjs && emailjsConfig.publicKey && emailjsConfig.publicKey !== 'SEU_PUBLIC_KEY') {
+    emailjs.init({ publicKey: emailjsConfig.publicKey });
+    logEmailJsStatus('Inicialização');
 } else {
-    console.warn('EmailJS não foi inicializado. Verifique se o script do EmailJS está carregando corretamente.');
+    logEmailJsStatus('Inicialização');
 }
 
 function openAuthModal() {
@@ -578,14 +600,18 @@ document.querySelectorAll('.tab-button').forEach(button => {
 });
 
 document.querySelectorAll('.cover-button').forEach(button => {
-    button.addEventListener('click', () => {
-        const cover = document.getElementById('cover');
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
 
-        if (cover.classList.contains('cover-hidden')) {
+        const cover = document.getElementById('cover');
+        const targetTab = button.getAttribute('data-cover-tab');
+        const tabs = document.getElementById('tabs');
+
+        if (!targetTab || !cover || cover.classList.contains('cover-hidden')) {
             return;
         }
 
-        activateTab(button.dataset.coverTab);
+        activateTab(targetTab);
         document.body.classList.remove('cover-active');
         cover.classList.add('cover-hidden');
 
@@ -594,7 +620,9 @@ document.querySelectorAll('.cover-button').forEach(button => {
         }, 600);
 
         setTimeout(() => {
-            document.getElementById('tabs').scrollIntoView({ behavior: 'smooth' });
+            if (tabs) {
+                tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }, 250);
     });
 });
@@ -689,24 +717,39 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     }
 });
 
-async function sendConfirmationEmail({ name, email, attending, guests, guestNames = [] }) {
-    const emailIsConfigured = window.emailjs &&
-        emailjsConfig.publicKey !== "SEU_PUBLIC_KEY" &&
-        emailjsConfig.serviceId !== "SEU_SERVICE_ID" &&
-        emailjsConfig.rsvpTemplateId !== "SEU_RSVP_TEMPLATE_ID";
+async function sendEmailFlow(templateId, templateParams) {
+    if (!isEmailJsReady()) {
+        console.warn('[EmailJS] Fluxo bloqueado porque o EmailJS não está pronto para envio.');
+        return false;
+    }
 
-    if (!emailIsConfigured) {
-        console.warn('EmailJS ainda não está configurado. Preencha publicKey, serviceId e rsvpTemplateId.');
-        return;
+    try {
+        await emailjs.send(
+            emailjsConfig.serviceId,
+            templateId,
+            templateParams,
+            getEmailJsOptions()
+        );
+        return true;
+    } catch (error) {
+        console.error('[EmailJS] Falha no envio do fluxo:', error);
+        throw error;
+    }
+}
+
+async function sendConfirmationEmail({ name, email, attending, guests, guestNames = [] }) {
+    if (!emailjsConfig.rsvpTemplateId || emailjsConfig.rsvpTemplateId === 'SEU_RSVP_TEMPLATE_ID') {
+        console.warn('[EmailJS] Template do RSVP não foi configurado.');
+        return false;
     }
 
     const attendingText = attending === 'yes' ? 'Sim, vou comparecer' : 'Não vou poder comparecer';
 
-    await emailjs.send(emailjsConfig.serviceId, emailjsConfig.rsvpTemplateId, {
+    return sendEmailFlow(emailjsConfig.rsvpTemplateId, {
         subject: `Confirmação de presença - ${name}`,
         to_email: email,
         to_name: name,
-        email: email,
+        email,
         user_email: email,
         guest_name: name,
         guest_email: email,
@@ -721,25 +764,25 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
 }
 
 async function sendGiftReservationEmail({ name, email, gift }) {
-    const emailIsConfigured = window.emailjs &&
-        emailjsConfig.publicKey !== "SEU_PUBLIC_KEY" &&
-        emailjsConfig.serviceId !== "SEU_SERVICE_ID" &&
-        emailjsConfig.giftTemplateId !== "SEU_GIFT_TEMPLATE_ID" &&
-        emailjsConfig.giftTemplateId !== emailjsConfig.rsvpTemplateId;
+    if (!emailjsConfig.giftTemplateId || emailjsConfig.giftTemplateId === 'SEU_GIFT_TEMPLATE_ID') {
+        console.warn('[EmailJS] Template do presente não foi configurado.');
+        return false;
+    }
 
-    if (!emailIsConfigured) {
-        console.warn('EmailJS de presente ainda não está configurado. Preencha giftTemplateId com um template diferente do RSVP.');
-        return;
+    if (emailjsConfig.giftTemplateId === emailjsConfig.rsvpTemplateId) {
+        console.warn('[EmailJS] O template do presente deve ser diferente do RSVP para evitar conflitos.');
+        return false;
     }
 
     const qrCodeUrl = gift.qrcodeImage
         ? new URL(gift.qrcodeImage, window.location.href).href
         : '';
+
     const templateParams = {
         subject: `Reserva de presente - ${gift.name}`,
         to_email: email,
         to_name: name,
-        email: email,
+        email,
         user_email: email,
         gift_name: gift.name,
         gift_description: gift.description,
@@ -752,19 +795,13 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         reply_to: email
     };
 
-    console.log('Enviando email de reserva de presente com template:', emailjsConfig.giftTemplateId, templateParams);
+    console.log('[EmailJS] Enviando reserva de presente com template:', emailjsConfig.giftTemplateId, templateParams);
 
     try {
-        await emailjs.send(
-            emailjsConfig.serviceId,
-            emailjsConfig.giftTemplateId,
-            templateParams,
-            emailjsConfig.publicKey
-        );
-        console.log('Email de reserva de presente enviado com sucesso');
+        return await sendEmailFlow(emailjsConfig.giftTemplateId, templateParams);
     } catch (error) {
-        console.error('Falha ao enviar email de reserva de presente:', error);
-        throw new Error('Não foi possível enviar o email de confirmação. Verifique a configuração do EmailJS.');
+        console.error('[EmailJS] Falha ao enviar email de reserva de presente:', error);
+        throw new Error('Não foi possível enviar o email de confirmação do presente. Verifique a configuração do EmailJS.');
     }
 }
 
@@ -817,7 +854,6 @@ async function loadGifts() {
     } catch (error) {
         console.error('Erro ao carregar presentes:', error);
         // Fallback: lista estática
-        giftList.innerHTML = '';
         defaultGifts.forEach(gift => {
             giftList.appendChild(createGiftItem(gift));
         });
@@ -863,7 +899,6 @@ function createGiftItem(gift, selectedGift) {
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.placeholder = 'Seu nome';
-        nameInput.setAttribute('aria-label', `Nome para reservar ${gift.name || 'presente'}`);
 
         const emailInput = document.createElement('input');
         emailInput.type = 'email';
