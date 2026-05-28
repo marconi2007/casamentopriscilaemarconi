@@ -797,6 +797,42 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
     });
 }
 
+function getGiftField(gift, fieldNames, fallback = '') {
+    for (const fieldName of fieldNames) {
+        const value = gift && gift[fieldName];
+        if (value !== undefined && value !== null && String(value).trim() !== '') {
+            return String(value).trim();
+        }
+    }
+
+    return fallback;
+}
+
+function formatGiftPrice(price) {
+    const rawPrice = String(price || '').trim();
+
+    if (!rawPrice) {
+        return 'R$ 0';
+    }
+
+    return rawPrice.toLowerCase().startsWith('r$') ? rawPrice : `R$ ${rawPrice}`;
+}
+
+function getAbsoluteAssetUrl(assetPath) {
+    const path = String(assetPath || '').trim();
+
+    if (!path) {
+        return '';
+    }
+
+    try {
+        return encodeURI(new URL(path, window.location.href).href);
+    } catch (error) {
+        console.warn('[EmailJS] Nao foi possivel montar a URL do ativo:', assetPath, error);
+        return path;
+    }
+}
+
 async function sendGiftReservationEmail({ name, email, gift }) {
     if (!emailjsConfig.giftTemplateId || emailjsConfig.giftTemplateId === 'SEU_GIFT_TEMPLATE_ID') {
         console.warn('[EmailJS] Template do presente não foi configurado.');
@@ -808,27 +844,37 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         return false;
     }
 
-    const qrCodeUrl = gift.qrcodeImage
-        ? new URL(gift.qrcodeImage, window.location.href).href
-        : '';
+    const giftName = getGiftField(gift, ['name', 'gift_name', 'giftName', 'title'], 'Presente');
+    const giftDescription = getGiftField(gift, ['description', 'gift_description', 'giftDescription', 'descricao'], 'Presente reservado');
+    const giftPrice = formatGiftPrice(getGiftField(gift, ['price', 'gift_price', 'giftPrice', 'value', 'valor'], '0'));
+    const giftQrPath = getGiftField(gift, ['qrcodeImage', 'qrCodeImage', 'qr_code_image', 'gift_qr_url', 'qrCodeUrl', 'qrcodeUrl', 'qrUrl']);
+    const giftQrUrl = getAbsoluteAssetUrl(giftQrPath);
+    const giftPixKey = getGiftField(gift, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']);
+    const hasPixKey = Boolean(giftPixKey);
 
     const templateParams = {
-        subject: `Reserva de presente - ${gift.name}`,
+        subject: `Reserva de presente - ${giftName}`,
         to_email: email,
         to_name: name,
         email,
         user_email: email,
-        gift_name: gift.name,
-        gift_description: gift.description,
-        gift_price: `R$ ${gift.price}`,
-        gift_qr_url: qrCodeUrl,
-        qr_code_image: qrCodeUrl,
-        gift_pix_key: gift.pixKey || '',
-        has_pix_key: Boolean(gift.pixKey),
+        gift_name: giftName,
+        gift_description: giftDescription,
+        gift_price: giftPrice,
+        gift_qr_url: giftQrUrl,
+        qr_code_image: giftQrUrl,
+        gift_pix_key: giftPixKey,
+        has_pix_key: hasPixKey,
         couple_names: 'Priscila e Marconi',
         payment_instruction: 'Escaneie o QR Code para realizar o pagamento do presente reservado.',
         from_name: 'Priscila e Marconi',
-        reply_to: email
+        reply_to: email,
+        giftName,
+        giftDescription,
+        giftPrice,
+        qrCodeImage: giftQrUrl,
+        qrcodeImage: giftQrUrl,
+        pixKey: giftPixKey
     };
 
     console.log('[EmailJS] Enviando reserva de presente com template:', emailjsConfig.giftTemplateId, templateParams);
