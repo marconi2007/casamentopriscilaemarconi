@@ -579,6 +579,24 @@ button:active {
     margin: 0.5rem 0;
 }
 
+.gift-pix-copy {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.gift-pix-copy textarea {
+    width: 100%;
+    min-height: 92px;
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(205, 104, 137, 0.35);
+    border-radius: 8px;
+    color: var(--rose-cinnamon-700);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    resize: vertical;
+}
+
 .location-address {
     font-size: 1.1rem;
     margin: 1rem 0 1.5rem;

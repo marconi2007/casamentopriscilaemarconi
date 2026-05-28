@@ -50,7 +50,8 @@ const defaultGifts = [
         description: 'Airfryer prática para fritar com menos óleo',
         price: '400',
         image: 'Fotos/Airfryer.jpeg',
-        qrcodeImage: 'Fotos/qrcodeAirfryer.jpeg'
+        qrcodeImage: 'Fotos/qrcodeAirfryer.jpeg',
+        pixKey: '00020126500014br.gov.bcb.pix0114+55319838789910210Air fryer 5204000053039865406400.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514550128850300017br.gov.bcb.brcode01051.0.06304DC4C'
     },
     {
         id: 'assadeiras',
@@ -58,7 +59,8 @@ const defaultGifts = [
         description: 'Conjunto de assadeiras versáteis para forno',
         price: '180',
         image: 'Fotos/assadeiras.jpeg',
-        qrcodeImage: 'Fotos/qrcodeassadeiras.jpeg'
+        qrcodeImage: 'Fotos/qrcodeassadeiras.jpeg',
+        pixKey: '00020126510014br.gov.bcb.pix0114+55319838789910211Assadeiras 5204000053039865406180.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514380513350300017br.gov.bcb.brcode01051.0.06304F6B6'
     },
     {
         id: 'boleira-e-queijeira',
@@ -66,6 +68,7 @@ const defaultGifts = [
         description: 'Conjunto elegante para servir bolos e queijos',
         price: '150',
         image: 'Fotos/boleiraequeijeira.jpeg',
+        pixKey: '00020126600014br.gov.bcb.pix0114+55319838789910220Boleira e queijeira 5204000053039865406150.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514522971850300017br.gov.bcb.brcode01051.0.06304B9E5',
         qrcodeImage: 'Fotos/qrcodeboleiraequeijeira.jpeg'
     },
     {
@@ -74,7 +77,8 @@ const defaultGifts = [
         description: 'Cafeteira para começar o dia com aroma fresco',
         price: '289',
         image: 'Fotos/cafeteira.jpeg',
-        qrcodeImage: 'Fotos/qrcodecafeteira.jpeg'
+        qrcodeImage: 'Fotos/qrcodecafeteira.jpeg',
+        pixKey: '00020126500014br.gov.bcb.pix0114+55319838789910210Cafeteira 5204000053039865406289.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514331546150300017br.gov.bcb.brcode01051.0.063048F2B'
     },
     {
         id: 'geladeira',
@@ -82,7 +86,8 @@ const defaultGifts = [
         description: 'Geladeira moderna para sua cozinha',
         price: '3199',
         image: 'Fotos/geladeira.jpeg',
-        qrcodeImage: 'Fotos/qrcodegeladeira.jpeg'
+        qrcodeImage: 'Fotos/qrcodegeladeira.jpeg',
+        pixKey: '00020126500014br.gov.bcb.pix0114+55319838789910210Geladeira 52040000530398654073199.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052513474632550300017br.gov.bcb.brcode01051.0.0630415691'
     },
     {
         id: 'maquina-lavar',
@@ -90,7 +95,8 @@ const defaultGifts = [
         description: 'Máquina de lavar com tecnologia avançada',
         price: '4099',
         image: 'Fotos/maquina.jpeg',
-        qrcodeImage: 'Fotos/qrcodemaquina.jpeg'
+        qrcodeImage: 'Fotos/qrcodemaquina.jpeg',
+        pixKey: '00020126560014br.gov.bcb.pix0114+55319838789910216Maquina de lavar52040000530398654074099.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052513522705150300017br.gov.bcb.brcode01051.0.0630476CF'
     },
     {
         id: 'microondas',
@@ -98,7 +104,8 @@ const defaultGifts = [
         description: 'Microondas prático para sua cozinha',
         price: '550',
         image: 'Fotos/microondas.jpeg',
-        qrcodeImage: 'Fotos/qrcodemicroondas.jpeg'
+        qrcodeImage: 'Fotos/qrcodemicroondas.jpeg',
+        pixKey: '00020126500014br.gov.bcb.pix0114+55319838789910210Microondas5204000053039865406550.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052513550288050300017br.gov.bcb.brcode01051.0.06304DBD8'
     },
     {
         id: 'forno',
@@ -106,7 +113,8 @@ const defaultGifts = [
         description: 'Forno elétrico para assados e gratinados',
         price: '400',
         image: 'Fotos/forno.jpeg',
-        qrcodeImage: 'Fotos/qrcodeforno.jpeg'
+        qrcodeImage: 'Fotos/qrcodeforno.jpeg',
+        pixKey: '00020126540014br.gov.bcb.pix0114+55319838789910214Forno eletrico5204000053039865406400.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052513560531250300017br.gov.bcb.brcode01051.0.06304A8BB'
     },
     {
         id: 'climatizador',
@@ -114,7 +122,8 @@ const defaultGifts = [
         description: 'Climatizador refrescante para dias quentes',
         price: '349',
         image: 'Fotos/climatizador.jpeg',
-        qrcodeImage: 'Fotos/qrcodeclimatizador.jpeg'
+        qrcodeImage: 'Fotos/qrcodeclimatizador.jpeg',
+        pixKey: '00020126530014br.gov.bcb.pix0114+55319838789910213Climatizador 5204000053039865406349.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052515040544450300017br.gov.bcb.brcode01051.0.063047846'
     },
     {
         id: 'depurador-de-ar',
@@ -122,6 +131,7 @@ const defaultGifts = [
         description: 'Depurador de ar para uma cozinha mais limpa',
         price: '350',
         image: 'Fotos/depuradordear.jpeg',
+        pixKey: '00020126560014br.gov.bcb.pix0114+55319838789910216Depurador de ar 5204000053039865406350.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514344668050300017br.gov.bcb.brcode01051.0.0630429EC',
         qrcodeImage: 'Fotos/qrcodedepuradordear.jpeg'
     },
     {
@@ -130,7 +140,8 @@ const defaultGifts = [
         description: 'Cortinas elegantes para sala ou quarto',
         price: '299,90',
         image: 'Fotos/cortinas.jpeg',
-        qrcodeImage: 'Fotos/qrcodecortinas.jpeg'
+        qrcodeImage: 'Fotos/qrcodecortinas.jpeg',
+        pixKey: '00020126490014br.gov.bcb.pix0114+55319838789910209Cortinas 5204000053039865406299.905802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052515025274550300017br.gov.bcb.brcode01051.0.06304BE62'
     },
     {
         id: 'cama',
@@ -138,7 +149,8 @@ const defaultGifts = [
         description: 'Cama confortável para noites mais tranquilas',
         price: '1900',
         image: 'Fotos/cama.jpeg',
-        qrcodeImage: 'Fotos/qrcodecama.jpeg'
+        qrcodeImage: 'Fotos/qrcodecama.jpeg',
+        pixKey: '00020126490014br.gov.bcb.pix0114+55319838789910209Cama box 52040000530398654071900.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052513535913450300017br.gov.bcb.brcode01051.0.063045560'
     },
     {
         id: 'roupas-de-cama',
@@ -146,7 +158,8 @@ const defaultGifts = [
         description: 'Conjunto de roupas de cama premium',
         price: '180',
         image: 'Fotos/roupasdecama.jpeg',
-        qrcodeImage: 'Fotos/qrcoderoupasdecama.jpeg'
+        qrcodeImage: 'Fotos/qrcoderoupasdecama.jpeg',
+        pixKey: '00020126550014br.gov.bcb.pix0114+55319838789910215Roupas de cama 5204000053039865406180.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052515020281350300017br.gov.bcb.brcode01051.0.06304724A'
     },
     {
         id: 'edredom-queen',
@@ -154,7 +167,8 @@ const defaultGifts = [
         description: 'Edredom queen size macio e aconchegante',
         price: '229',
         image: 'Fotos/edredonquenn.jpeg',
-        qrcodeImage: 'Fotos/qrcodeedredonqueen.jpeg'
+        qrcodeImage: 'Fotos/qrcodeedredonqueen.jpeg',
+        pixKey: '00020126540014br.gov.bcb.pix0114+55319838789910214Edredon queen 5204000053039865406229.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514584651750300017br.gov.bcb.brcode01051.0.06304DCB5'
     },
     {
         id: 'sofa',
@@ -162,6 +176,7 @@ const defaultGifts = [
         description: 'Sofá confortável para a sala',
         price: '1800',
         image: 'Fotos/sofa.jpeg',
+        pixKey: '00020126450014br.gov.bcb.pix0114+55319838789910205Sofa 52040000530398654071800.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514294836450300017br.gov.bcb.brcode01051.0.06304E1CE',
         qrcodeImage: 'Fotos/qrcodesofa.jpeg'
     },
     {
@@ -170,7 +185,8 @@ const defaultGifts = [
         description: 'Mesa elegante para a sala de jantar',
         price: '1700',
         image: 'Fotos/mesa.jpeg',
-        qrcodeImage: 'Fotos/qrcodemesa.jpeg'
+        qrcodeImage: 'Fotos/qrcodemesa.jpeg',
+        pixKey: '00020126450014br.gov.bcb.pix0114+55319838789910205Mesa 52040000530398654071700.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514303816650300017br.gov.bcb.brcode01051.0.063045451'
     },
     {
         id: 'tapete-para-sala',
@@ -178,7 +194,8 @@ const defaultGifts = [
         description: 'Tapete aconchegante para a sala',
         price: '150',
         image: 'Fotos/tapeteparasala.jpeg',
-        qrcodeImage: 'Fotos/qrcodetapeteparasala.jpeg'
+        qrcodeImage: 'Fotos/qrcodetapeteparasala.jpeg',
+        pixKey: '00020126470014br.gov.bcb.pix0114+55319838789910207Tapete 5204000053039865406150.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514513276550300017br.gov.bcb.brcode01051.0.063046283'
     },
     {
         id: 'tv',
@@ -186,7 +203,8 @@ const defaultGifts = [
         description: 'TV para momentos de cinema em casa',
         price: '2100',
         image: 'Fotos/tv.jpeg',
-        qrcodeImage: 'Fotos/qrcodetv.jpeg'
+        qrcodeImage: 'Fotos/qrcodetv.jpeg',
+        pixKey: '00020126420014br.gov.bcb.pix0114+55319838789910202Tv52040000530398654072100.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514282654350300017br.gov.bcb.brcode01051.0.063044509'
     },
     {
         id: 'talheres',
@@ -194,6 +212,7 @@ const defaultGifts = [
         description: 'Jogo de talheres elegante para a mesa',
         price: '327',
         image: 'Fotos/talheres.jpeg',
+        pixKey: '00020126490014br.gov.bcb.pix0114+55319838789910209Talheres 5204000053039865406327.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514355186950300017br.gov.bcb.brcode01051.0.06304CDDB',
         qrcodeImage: 'Fotos/qrcodetalheres.jpeg'
     },
     {
@@ -202,6 +221,7 @@ const defaultGifts = [
         description: 'Conjunto de taças delicadas para sobremesa',
         price: '80',
         image: 'Fotos/tacasdesobremesa.jpeg',
+        pixKey: '00020126590014br.gov.bcb.pix0114+55319838789910219Tacas de sobremesa 520400005303986540580.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514371858450300017br.gov.bcb.brcode01051.0.06304CA8C',
         qrcodeImage: 'Fotos/qrcodetacasdesobremesa.jpeg'
     },
     {
@@ -210,7 +230,8 @@ const defaultGifts = [
         description: 'Jogo de copos para bebidas e festas',
         price: '40',
         image: 'Fotos/jogodecopos.jpeg',
-        qrcodeImage: 'Fotos/qrcodejogodecopos.jpeg'
+        qrcodeImage: 'Fotos/qrcodejogodecopos.jpeg',
+        pixKey: '00020126540014br.gov.bcb.pix0114+55319838789910214Jogo de copos 520400005303986540540.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514224332550300017br.gov.bcb.brcode01051.0.0630433FD'
     },
     {
         id: 'jogo-de-facas',
@@ -218,7 +239,8 @@ const defaultGifts = [
         description: 'Jogo completo de facas para cozinha',
         price: '90',
         image: 'Fotos/jogodefacas.jpeg',
-        qrcodeImage: 'Fotos/qrcodejogodefacas.jpeg'
+        qrcodeImage: 'Fotos/qrcodejogodefacas.jpeg',
+        pixKey: '00020126540014br.gov.bcb.pix0114+55319838789910214Jogo de facas 520400005303986540590.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514384752050300017br.gov.bcb.brcode01051.0.06304BBBC'
     },
     {
         id: 'jogo-de-jantar',
@@ -226,6 +248,7 @@ const defaultGifts = [
         description: 'Jogo de jantar completo para receber amigos',
         price: '250',
         image: 'Fotos/jogodejantar .jpeg',
+        pixKey: '00020126550014br.gov.bcb.pix0114+55319838789910215Jogo de jantar 5204000053039865406250.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052513595544350300017br.gov.bcb.brcode01051.0.06304B240',
         qrcodeImage: 'Fotos/qrcodejogodejantar.jpeg'
     },
     {
@@ -242,7 +265,8 @@ const defaultGifts = [
         description: 'Panela de arroz prática e rápida',
         price: '200',
         image: 'Fotos/panelaarroz.jpeg',
-        qrcodeImage: 'Fotos/qrcodepanelaarroz.jpeg'
+        qrcodeImage: 'Fotos/qrcodepanelaarroz.jpeg',
+        pixKey: '00020126360014br.gov.bcb.pix0114+55319838789915204000053039865406200.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514572975550300017br.gov.bcb.brcode01051.0.063044E09',
     },
     {
         id: 'panela-de-pressao',
@@ -250,6 +274,7 @@ const defaultGifts = [
         description: 'Panela de pressão para cozinhar com rapidez',
         price: '100',
         image: 'Fotos/paneladepressao.jpeg',
+        pixKey: '00020126580014br.gov.bcb.pix0114+55319838789910218Panela de pressao 5204000053039865406100.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514455594950300017br.gov.bcb.brcode01051.0.0630472A0',
         qrcodeImage: 'Fotos/qrcodepaneladepressao.jpeg'
     },
     {
@@ -258,7 +283,8 @@ const defaultGifts = [
         description: 'Utensílios essenciais para preparar receitas',
         price: '140',
         image: 'Fotos/utensiliosdecozinha.jpeg',
-        qrcodeImage: 'Fotos/qrcodeutensiliosdecozinha.jpeg'
+        qrcodeImage: 'Fotos/qrcodeutensiliosdecozinha.jpeg',
+        pixKey: '00020126620014br.gov.bcb.pix0114+55319838789910222Utensilios de cozinha 5204000053039865406140.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514445424450300017br.gov.bcb.brcode01051.0.06304D0A5'
     },
     {
         id: 'mixer',
@@ -266,7 +292,8 @@ const defaultGifts = [
         description: 'Mixer portátil para suas receitas',
         price: '180',
         image: 'Fotos/mixer.jpeg',
-        qrcodeImage: 'Fotos/qrcodemixer.jpeg'
+        qrcodeImage: 'Fotos/qrcodemixer.jpeg',
+        pixKey: '00020126460014br.gov.bcb.pix0114+55319838789910206Mixer 5204000053039865406180.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514233349450300017br.gov.bcb.brcode01051.0.06304A19E'
     },
     {
         id: 'fruteira',
@@ -274,7 +301,8 @@ const defaultGifts = [
         description: 'Fruteira bonita para decorar a mesa',
         price: '80',
         image: 'Fotos/fruteira.jpeg',
-        qrcodeImage: 'Fotos/qrcodefruteira.jpeg'
+        qrcodeImage: 'Fotos/qrcodefruteira.jpeg',
+        pixKey: '00020126490014br.gov.bcb.pix0114+55319838789910209Fruteira 520400005303986540580.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514465685850300017br.gov.bcb.brcode01051.0.063049621'
     },
     {
         id: 'batedeira',
@@ -298,7 +326,8 @@ const defaultGifts = [
         description: 'Ferro de passar roupa com mais praticidade',
         price: '130',
         image: 'Fotos/ferro.jpeg',
-        qrcodeImage: 'Fotos/qrcodeferro.jpeg'
+        qrcodeImage: 'Fotos/qrcodeferro.jpeg',
+        pixKey: '00020126550014br.gov.bcb.pix0114+55319838789910215Ferro eletrico 5204000053039865406170.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514473245250300017br.gov.bcb.brcode01051.0.06304F3F6',
     },
     {
         id: 'filtro-de-agua',
@@ -338,7 +367,8 @@ const defaultGifts = [
         description: 'Porta temperos organizado para a cozinha',
         price: '60',
         image: 'Fotos/portatemperos.jpeg',
-        qrcodeImage: 'Fotos/qrcodeportatemperos.jpeg'
+        qrcodeImage: 'Fotos/qrcodeportatemperos.jpeg',
+        pixKey: '00020126550014br.gov.bcb.pix0114+55319838789910215Porta temperos 520400005303986540560.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052711591724550300017br.gov.bcb.brcode01051.0.06304796F'
     },
     {
         id: 'tábua-de-frios',
@@ -354,6 +384,7 @@ const defaultGifts = [
         description: 'Móveis planejados para aproveitar o espaço da cozinha',
         price: '5000',
         image: 'Fotos/moveisplanejadoscozinha.jpeg',
+        pixKey: '00020126660014br.gov.bcb.pix0114+55319838789910226Moveis planejados cozinha 52040000530398654075000.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514252381150300017br.gov.bcb.brcode01051.0.063042B9D',
         qrcodeImage: 'Fotos/qrcodemoveisplanejadoscozinha.jpeg'
     },
     {
@@ -362,6 +393,7 @@ const defaultGifts = [
         description: 'Móveis planejados para quarto com estilo',
         price: '10000',
         image: 'Fotos/moveisplanejadosquarto.jpeg',
+        pixKey: '00020126650014br.gov.bcb.pix0114+55319838789910225Moveis planejados quarto 520400005303986540810000.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514273284150300017br.gov.bcb.brcode01051.0.06304C253',
         qrcodeImage: 'Fotos/qrcodemoveisplanejadosquarto.jpeg'
     },
     {
@@ -370,7 +402,8 @@ const defaultGifts = [
         description: 'Passagem para viagem de lua de mel',
         price: '800',
         image: 'Fotos/passagem.jpeg',
-        qrcodeImage: 'Fotos/qrcodepassagem.jpeg'
+        qrcodeImage: 'Fotos/qrcodepassagem.jpeg',
+        pixKey: '00020126600014br.gov.bcb.pix0114+55319838789910220Passagem lua de mel 5204000053039865406800.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052515044929450300017br.gov.bcb.brcode01051.0.063043C3C'
     },
     {
         id: 'passeios-lua-de-mel',
@@ -386,6 +419,7 @@ const defaultGifts = [
         description: 'Toalha felpuda e macia para o banheiro',
         price: '200',
         image: 'Fotos/toalhadebanho.jpeg',
+        pixKey: '00020126570014br.gov.bcb.pix0114+55319838789910217Toalhas de banho 5204000053039865406200.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514322063150300017br.gov.bcb.brcode01051.0.0630459AE',
         qrcodeImage: 'Fotos/qrcodetoalhadebanho.jpeg'
     }
 ];
@@ -789,6 +823,8 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         gift_price: `R$ ${gift.price}`,
         gift_qr_url: qrCodeUrl,
         qr_code_image: qrCodeUrl,
+        gift_pix_key: gift.pixKey || '',
+        has_pix_key: Boolean(gift.pixKey),
         couple_names: 'Priscila e Marconi',
         payment_instruction: 'Escaneie o QR Code para realizar o pagamento do presente reservado.',
         from_name: 'Priscila e Marconi',

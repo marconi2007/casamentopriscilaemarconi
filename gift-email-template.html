@@ -80,6 +80,26 @@
                                     </td>
                                 </tr>
                             </table>
+
+                            {{#has_pix_key}}
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; margin-top: 18px;">
+                                <tr>
+                                    <td align="center" style="padding: 22px 20px; background: #f5f0f3; border: 2px dashed #efadc4; border-radius: 12px;">
+                                        <p style="margin: 0 0 12px; color: #983d5e; font-size: 14px; font-weight: bold;">
+                                            Ou copie a chave PIX:
+                                        </p>
+                                        <div style="background: #ffffff; border: 1px solid #f9d7e3; border-radius: 8px; padding: 12px; word-break: break-all;">
+                                            <p style="margin: 0; color: #4b1f30; font-size: 12px; font-family: 'Courier New', monospace; line-height: 1.6; word-wrap: break-word;">
+                                                {{gift_pix_key}}
+                                            </p>
+                                        </div>
+                                        <p style="margin: 12px 0 0; color: #b85073; font-size: 12px; font-style: italic;">
+                                            Clique no texto acima para selecionar e copiar a chave.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            {{/has_pix_key}}
                         </td>
                     </tr>
 
