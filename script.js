@@ -798,10 +798,14 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
 }
 
 function getGiftField(gift, fieldNames, fallback = '') {
-    for (const fieldName of fieldNames) {
-        const value = gift && gift[fieldName];
-        if (value !== undefined && value !== null && String(value).trim() !== '') {
-            return String(value).trim();
+    const sources = Array.isArray(gift) ? gift : [gift];
+
+    for (const source of sources) {
+        for (const fieldName of fieldNames) {
+            const value = source && source[fieldName];
+            if (value !== undefined && value !== null && String(value).trim() !== '') {
+                return String(value).trim();
+            }
         }
     }
 
@@ -844,12 +848,15 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         return false;
     }
 
-    const giftName = getGiftField(gift, ['name', 'gift_name', 'giftName', 'title'], 'Presente');
-    const giftDescription = getGiftField(gift, ['description', 'gift_description', 'giftDescription', 'descricao'], 'Presente reservado');
-    const giftPrice = formatGiftPrice(getGiftField(gift, ['price', 'gift_price', 'giftPrice', 'value', 'valor'], '0'));
-    const giftQrPath = getGiftField(gift, ['qrcodeImage', 'qrCodeImage', 'qr_code_image', 'gift_qr_url', 'qrCodeUrl', 'qrcodeUrl', 'qrUrl']);
+    const giftId = getGiftField(gift, ['id', 'giftId']);
+    const defaultGift = defaultGifts.find(item => item.id === giftId);
+    const giftSources = [gift, defaultGift];
+    const giftName = getGiftField(giftSources, ['name', 'gift_name', 'giftName', 'title'], 'Presente');
+    const giftDescription = getGiftField(giftSources, ['description', 'gift_description', 'giftDescription', 'descricao'], 'Presente reservado');
+    const giftPrice = formatGiftPrice(getGiftField(giftSources, ['price', 'gift_price', 'giftPrice', 'value', 'valor'], '0'));
+    const giftQrPath = getGiftField(giftSources, ['qrcodeImage', 'qrCodeImage', 'qr_code_image', 'gift_qr_url', 'qrCodeUrl', 'qrcodeUrl', 'qrUrl']);
     const giftQrUrl = getAbsoluteAssetUrl(giftQrPath);
-    const giftPixKey = getGiftField(gift, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']);
+    const giftPixKey = getGiftField(giftSources, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']);
     const hasPixKey = Boolean(giftPixKey);
 
     const templateParams = {
