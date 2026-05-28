@@ -280,7 +280,7 @@ const defaultGifts = [
         id: 'batedeira',
         name: 'Batedeira',
         description: 'Batedeira prática para preparar receitas e massas',
-        price: '220',
+        price: '150',
         image: 'Fotos/batedeira.jpeg',
         qrcodeImage: 'Fotos/qrcodebatedeira.jpeg'
     },
@@ -288,7 +288,7 @@ const defaultGifts = [
         id: 'bule',
         name: 'Bule',
         description: 'Bule elegante para servir chás e cafés',
-        price: '90',
+        price: '80',
         image: 'Fotos/bule.jpeg',
         qrcodeImage: 'Fotos/qrcodebule.jpeg'
     },
@@ -304,7 +304,7 @@ const defaultGifts = [
         id: 'filtro-de-agua',
         name: 'Filtro de Água',
         description: 'Filtro de água para uma rotina mais saudável',
-        price: '160',
+        price: '300',
         image: 'Fotos/filtrodeagua.jpeg',
         qrcodeImage: 'Fotos/qrcodefiltrodeagua.jpeg'
     },
@@ -320,7 +320,7 @@ const defaultGifts = [
         id: 'jogo-de-bandejas',
         name: 'Jogo de Bandejas',
         description: 'Conjunto de bandejas para servir com estilo',
-        price: '120',
+        price: '160',
         image: 'Fotos/jogodebandejas.jpeg',
         qrcodeImage: 'Fotos/qrcodejogodebandejas.jpeg'
     },
@@ -328,7 +328,7 @@ const defaultGifts = [
         id: 'jogo-de-tigelas',
         name: 'Jogo de Tigelas',
         description: 'Jogo de tigelas versátil para o dia a dia',
-        price: '95',
+        price: '60',
         image: 'Fotos/jogodetigelas.jpeg',
         qrcodeImage: 'Fotos/qrcodejogodetigelas.jpeg'
     },
@@ -336,7 +336,7 @@ const defaultGifts = [
         id: 'porta-temperos',
         name: 'Porta Temperos',
         description: 'Porta temperos organizado para a cozinha',
-        price: '85',
+        price: '60',
         image: 'Fotos/portatemperos.jpeg',
         qrcodeImage: 'Fotos/qrcodeportatemperos.jpeg'
     },
@@ -344,7 +344,7 @@ const defaultGifts = [
         id: 'tábua-de-frios',
         name: 'Tábua de Frios',
         description: 'Tábua elegante para servir frios e petiscos',
-        price: '110',
+        price: '40',
         image: 'Fotos/tabuadefrios.jpeg',
         qrcodeImage: 'Fotos/qrcodetabuadefrios.jpeg'
     },
