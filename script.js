@@ -257,7 +257,8 @@ const defaultGifts = [
         description: 'Jogo de panelas resistente para cozinhar',
         price: '550',
         image: 'Fotos/jogodepanelas.jpeg',
-        qrcodeImage: 'Fotos/qrcodejogodepanelas.jpeg'
+        qrcodeImage: 'Fotos/qrcodejogodepanelas.jpeg',
+        pixKey: '00020126590014br.gov.bcb.pix0114+55319838789910219Jogo de panelas 5204000053039865406550.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514261347850300017br.gov.bcb.brcode01051.0.06304A7F3'
     },
     {
         id: 'panelasidade-arroz',
@@ -310,7 +311,8 @@ const defaultGifts = [
         description: 'Batedeira prática para preparar receitas e massas',
         price: '150',
         image: 'Fotos/batedeira.jpeg',
-        qrcodeImage: 'Fotos/qrcodebatedeira.jpeg'
+        qrcodeImage: 'Fotos/qrcodebatedeira.jpeg',
+        pixKey: '00020126550014br.gov.bcb.pix0114+55319838789910215Batedeira 5204000053039865406150.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514504256850300017br.gov.bcb.brcode01051.0.06304E4B1'
     },
     {
         id: 'bule',
@@ -318,7 +320,8 @@ const defaultGifts = [
         description: 'Bule elegante para servir chás e cafés',
         price: '80',
         image: 'Fotos/bule.jpeg',
-        qrcodeImage: 'Fotos/qrcodebule.jpeg'
+        qrcodeImage: 'Fotos/qrcodebule.jpeg',
+        pixKey: '00020126490014br.gov.bcb.pix0114+55319838789910209Bule 520400005303986540580.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052515031465050300017br.gov.bcb.brcode01051.0.06304C5D7'
     },
     {
         id: 'ferro',
@@ -335,7 +338,8 @@ const defaultGifts = [
         description: 'Filtro de água para uma rotina mais saudável',
         price: '300',
         image: 'Fotos/filtrodeagua.jpeg',
-        qrcodeImage: 'Fotos/qrcodefiltrodeagua.jpeg'
+        qrcodeImage: 'Fotos/qrcodefiltrodeagua.jpeg',
+        pixKey: '00020126610014br.gov.bcb.pix0114+55319838789910221Filtro de agua 5204000053039865406300.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514350512350300017br.gov.bcb.brcode01051.0.063046B49'
     },
     {
         id: 'garrafa-de-cafe',
@@ -343,7 +347,8 @@ const defaultGifts = [
         description: 'Garrafa térmica para manter o café quente',
         price: '70',
         image: 'Fotos/garrafadecafe.jpeg',
-        qrcodeImage: 'Fotos/qrcodegarrafadecafe.jpeg'
+        qrcodeImage: 'Fotos/qrcodegarrafadecafe.jpeg',
+        pixKey: '00020126570014br.gov.bcb.pix0114+55319838789910217Garrafa de cafe 520400005303986540570.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052515036213250300017br.gov.bcb.brcode01051.0.06304F8E9'
     },
     {
         id: 'jogo-de-bandejas',
@@ -351,7 +356,8 @@ const defaultGifts = [
         description: 'Conjunto de bandejas para servir com estilo',
         price: '160',
         image: 'Fotos/jogodebandejas.jpeg',
-        qrcodeImage: 'Fotos/qrcodejogodebandejas.jpeg'
+        qrcodeImage: 'Fotos/qrcodejogodebandejas.jpeg',
+        pixKey: '00020126560014br.gov.bcb.pix0114+55319838789910216Jogo de bandejas 5204000053039865406160.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514261654850300017br.gov.bcb.brcode01051.0.063049F24'
     },
     {
         id: 'jogo-de-tigelas',
@@ -359,7 +365,8 @@ const defaultGifts = [
         description: 'Jogo de tigelas versátil para o dia a dia',
         price: '60',
         image: 'Fotos/jogodetigelas.jpeg',
-        qrcodeImage: 'Fotos/qrcodejogodetigelas.jpeg'
+        qrcodeImage: 'Fotos/qrcodejogodetigelas.jpeg',
+        pixKey: '00020126550014br.gov.bcb.pix0114+55319838789910215Jogo de tigelas 520400005303986540560.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514273354350300017br.gov.bcb.brcode01051.0.063047A15'
     },
     {
         id: 'porta-temperos',
@@ -376,7 +383,8 @@ const defaultGifts = [
         description: 'Tábua elegante para servir frios e petiscos',
         price: '40',
         image: 'Fotos/tabuadefrios.jpeg',
-        qrcodeImage: 'Fotos/qrcodetabuadefrios.jpeg'
+        qrcodeImage: 'Fotos/qrcodetabuadefrios.jpeg',
+        pixKey: '00020126540014br.gov.bcb.pix0114+55319838789910214Tabua de frios 520400005303986540540.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514325168550300017br.gov.bcb.brcode01051.0.06304B8A6'
     },
     {
         id: 'moveis-planejados-cozinha',
@@ -411,7 +419,8 @@ const defaultGifts = [
         description: 'Passeios românticos para a lua de mel',
         price: '3000',
         image: 'Fotos/passeiosluademel.jpeg',
-        qrcodeImage: 'Fotos/qrocdepasseiosluademel.jpeg'
+        qrcodeImage: 'Fotos/qrocdepasseiosluademel.jpeg',
+        pixKey: '00020126600014br.gov.bcb.pix0114+55319838789910220Passeios lua de mel 52040000530398654073000.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514314751850300017br.gov.bcb.brcode01051.0.063044F5E'
     },
     {
         id: 'toalha-de-banho',
@@ -851,6 +860,10 @@ async function sendGiftReservationEmail({ name, email, gift }) {
     const giftId = getGiftField(gift, ['id', 'giftId']);
     const defaultGift = defaultGifts.find(item => item.id === giftId);
     const giftSources = [gift, defaultGift];
+    
+    console.log('[DEBUG] Gift object:', gift);
+    console.log('[DEBUG] Default gift found:', defaultGift);
+    
     const giftName = getGiftField(giftSources, ['name', 'gift_name', 'giftName', 'title'], 'Presente');
     const giftDescription = getGiftField(giftSources, ['description', 'gift_description', 'giftDescription', 'descricao'], 'Presente reservado');
     const giftPrice = formatGiftPrice(getGiftField(giftSources, ['price', 'gift_price', 'giftPrice', 'value', 'valor'], '0'));
@@ -858,6 +871,10 @@ async function sendGiftReservationEmail({ name, email, gift }) {
     const giftQrUrl = getAbsoluteAssetUrl(giftQrPath);
     const giftPixKey = getGiftField(giftSources, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']);
     const hasPixKey = Boolean(giftPixKey && String(giftPixKey).trim() !== '');
+    
+    console.log('[DEBUG] Gift ID:', giftId);
+    console.log('[DEBUG] PIX Key extracted:', giftPixKey ? `${giftPixKey.substring(0, 30)}...` : 'NOT FOUND');
+    console.log('[DEBUG] Has PIX Key:', hasPixKey);
 
     const templateParams = {
         subject: `Reserva de presente - ${giftName}`,
@@ -889,6 +906,8 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         pixKey: giftPixKey
     };
 
+    console.log('[EmailJS] Template Parameters:', templateParams);
+    console.log('[EmailJS] PIX Key in params:', templateParams.gift_pix_key ? `${templateParams.gift_pix_key.substring(0, 30)}...` : 'MISSING');
     console.log('[EmailJS] Enviando reserva de presente com template:', emailjsConfig.giftTemplateId, templateParams);
 
     try {
