@@ -857,7 +857,7 @@ async function sendGiftReservationEmail({ name, email, gift }) {
     const giftQrPath = getGiftField(giftSources, ['qrcodeImage', 'qrCodeImage', 'qr_code_image', 'gift_qr_url', 'qrCodeUrl', 'qrcodeUrl', 'qrUrl']);
     const giftQrUrl = getAbsoluteAssetUrl(giftQrPath);
     const giftPixKey = getGiftField(giftSources, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']);
-    const hasPixKey = Boolean(giftPixKey);
+    const hasPixKey = Boolean(giftPixKey && String(giftPixKey).trim() !== '');
 
     const templateParams = {
         subject: `Reserva de presente - ${giftName}`,
@@ -872,6 +872,11 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         qr_code_image: giftQrUrl,
         gift_pix_key: giftPixKey,
         has_pix_key: hasPixKey,
+        // Compatibilidade: algumas templates/implementações podem usar variações do nome
+        pix_key: giftPixKey,
+        pixKey: giftPixKey,
+        // Valor não-escapado para templates que precisem mostrar exatamente o conteúdo
+        gift_pix_key_unescaped: giftPixKey,
         couple_names: 'Priscila e Marconi',
         payment_instruction: 'Escaneie o QR Code para realizar o pagamento do presente reservado.',
         from_name: 'Priscila e Marconi',
