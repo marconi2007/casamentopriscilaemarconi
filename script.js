@@ -47,7 +47,6 @@ const defaultGifts = [
     {
         id: 'airfryer',
         name: 'Airfryer',
-        description: 'Airfryer prática para fritar com menos óleo',
         price: '400',
         image: 'Fotos/Airfryer.jpeg',
         qrcodeImage: 'Fotos/qrcodeAirfryer.jpeg',
