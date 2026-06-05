@@ -36,7 +36,8 @@ service cloud.firestore {
           'giftId',
           'selectedBy',
           'selectedEmail',
-          'timestamp'
+          'timestamp',
+          'pixKey'
         ])
         && request.resource.data.giftId == giftId
         && request.resource.data.giftId is string
@@ -48,6 +49,9 @@ service cloud.firestore {
         && request.resource.data.selectedEmail is string
         && request.resource.data.selectedEmail.size() > 0
         && request.resource.data.selectedEmail.size() <= 120
+        && request.resource.data.pixKey is string
+        && request.resource.data.pixKey.size() > 0
+        && request.resource.data.pixKey.size() <= 256
         && request.resource.data.timestamp is timestamp;
 
       allow update, delete: if request.auth != null;

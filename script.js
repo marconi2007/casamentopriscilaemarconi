@@ -1012,6 +1012,9 @@ async function selectGift(giftId, selectedBy, selectedEmail, giftData) {
 
     try {
         const selectedGiftRef = db.collection('selectedGifts').doc(giftId);
+        
+        // Extrair a chave PIX do gift data
+        const giftPixKey = getGiftField(giftData ? [giftData] : [], ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix'], '');
 
         await db.runTransaction(async transaction => {
             const selectedGift = await transaction.get(selectedGiftRef);
@@ -1024,6 +1027,7 @@ async function selectGift(giftId, selectedBy, selectedEmail, giftData) {
                 giftId,
                 selectedBy: selectedName,
                 selectedEmail: selectedEmailTrimmed,
+                pixKey: giftPixKey,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             });
         });
