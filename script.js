@@ -606,18 +606,18 @@ document.querySelectorAll('.cover-button').forEach(button => {
         const cover = document.getElementById('cover');
         const targetTab = button.getAttribute('data-cover-tab');
         const tabs = document.getElementById('tabs');
-
-        if (!targetTab || !cover || cover.classList.contains('cover-hidden')) {
+        if (!targetTab) {
             return;
         }
 
         activateTab(targetTab);
-        document.body.classList.remove('cover-active');
-        cover.classList.add('cover-hidden');
-
-        setTimeout(() => {
-            cover.classList.add('cover-dismissed');
-        }, 600);
+        if (cover && !cover.classList.contains('cover-dismissed')) {
+            document.body.classList.remove('cover-active');
+            cover.classList.add('cover-hidden');
+            setTimeout(() => {
+                cover.classList.add('cover-dismissed');
+            }, 600);
+        }
 
         setTimeout(() => {
             if (tabs) {
@@ -862,7 +862,7 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         giftPrice,
         qrCodeImage: giftQrUrl,
         qrcodeImage: giftQrUrl,
-        pixKey: giftPixKey
+        pixKey: giftPixKeyDisplay
     };
 
     console.log('[EmailJS] Template Parameters:', templateParams);

@@ -10,24 +10,13 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
-<body class="cover-active">
+<body>
     <audio id="background-music" src="musica.mp3" autoplay loop preload="auto"></audio>
 
-    <section id="cover" class="pre-cover">
+    <section id="cover" class="pre-cover cover-dismissed">
         <div class="cover-header">
             <h1 class="cover-title wedding-couple-name">Priscila & Marconi</h1>
             <div id="countdown" class="countdown cover-countdown"></div>
-        </div>
-        <div class="cover-actions" aria-label="Acessos rápidos do casamento">
-            <button class="cover-button cover-button-wide" type="button" data-cover-tab="rsvp">
-                Confirmação de Presença
-            </button>
-            <button class="cover-button" type="button" data-cover-tab="gifts">
-                Lista de Presente
-            </button>
-            <button class="cover-button" type="button" data-cover-tab="location">
-                Ver no Maps
-            </button>
         </div>
         <button id="secret-login-trigger" class="secret-zone" type="button" aria-label="Área secreta de login"></button>
     </section>
@@ -36,6 +25,25 @@
         <h1 class="wedding-couple-name">Priscila & Marconi</h1>
         <p>Nosso Grande Dia - 05 de setembro de 2026</p>
     </header>
+
+    <div class="cover-actions" aria-label="Acessos rápidos do casamento">
+        <button class="cover-button cover-button-wide" type="button" data-cover-tab="rsvp">
+            Confirmação de Presença
+        </button>
+        <button class="cover-button" type="button" data-cover-tab="gifts">
+            Lista de Presente
+        </button>
+        <button class="cover-button" type="button" data-cover-tab="location">
+            Ver no Maps
+        </button>
+    </div>
+
+    <section id="about" class="fade-in">
+        <h2>Sobre Nós</h2>
+        <p>Depois de alguns anos de namoro, cheios de momentos especiais, aprendizados e muito amor, finalmente chegou a hora de darmos o próximo passo: vamos nos casar!</p>
+        <p>Estamos vivendo essa fase com o coração cheio de alegria, preparando cada detalhe com muito carinho para que esse dia seja inesquecível, não só para nós, mas para todos que fazem parte da nossa história.</p>
+        <p>Mal podemos esperar para celebrar esse momento tão especial ao lado das pessoas que amamos! 🤍</p>
+    </section>
 
     <section id="hero" class="fade-in">
         <div class="hero-content">
@@ -71,13 +79,6 @@
                 <button class="indicator" data-slide="4" aria-label="Foto 6"></button>
             </div>
         </div>
-    </section>
-
-    <section id="about" class="fade-in">
-        <h2>Sobre Nós</h2>
-        <p>Depois de alguns anos de namoro, cheios de momentos especiais, aprendizados e muito amor, finalmente chegou a hora de darmos o próximo passo: vamos nos casar!</p>
-        <p>Estamos vivendo essa fase com o coração cheio de alegria, preparando cada detalhe com muito carinho para que esse dia seja inesquecível, não só para nós, mas para todos que fazem parte da nossa história.</p>
-        <p>Mal podemos esperar para celebrar esse momento tão especial ao lado das pessoas que amamos! 🤍</p>
     </section>
 
     <section id="tabs" class="fade-in">

@@ -258,28 +258,17 @@ section p,
 }
 
 .cover-actions {
-    width: min(100%, 24rem);
     display: flex;
-    flex-direction: column;
+    width: min(100%, 46rem);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 1.7rem;
+    gap: 1rem;
     position: relative;
     z-index: 1;
     animation: coverFloatIn 1s ease-out both;
-    margin-top: 10vh;
-}
-
-.cover-title {
-    font-size: 4rem;
-    color: #ffffff;
-    text-shadow: 0 0 14px rgba(255, 255, 255, 0.42);
-    margin: 0;
-    position: relative;
-    z-index: 1;
-    animation: coverFloatIn 1s ease-out both, pulseGlow 2.8s ease-in-out 0.8s infinite;
-    font-family: 'Great Vibes', cursive;
-    font-weight: 400;
-    letter-spacing: 0;
+    margin: 1.5rem auto 2.5rem;
 }
 
 .cover-header {
@@ -299,7 +288,7 @@ section p,
 
 
 .cover-button {
-    width: min(100%, 13.5rem);
+    width: 13.5rem;
     min-height: 3rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.28);
@@ -315,7 +304,7 @@ section p,
 }
 
 .cover-button-wide {
-    width: min(100%, 18rem);
+    width: 13.5rem;
 }
 
 .cover-button:hover {

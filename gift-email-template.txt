@@ -18,8 +18,7 @@ Pagamento
 QR Code: {{gift_qr_url}}
 
 {{#has_pix_key}}
-Ou copie a chave PIX:
-{{{pix_display_key}}}
+Chave PIX: {{{pix_display_key}}}
 {{/has_pix_key}}
 
 Com carinho,
