@@ -19,7 +19,7 @@ QR Code: {{gift_qr_url}}
 
 {{#has_pix_key}}
 Ou copie a chave PIX:
-{{{gift_pix_key}}}
+{{#gift_pix_key}}{{{gift_pix_key}}}{{/gift_pix_key}}{{^gift_pix_key}}{{#pix_key}}{{{pix_key}}}{{/pix_key}}{{^pix_key}}{{#pixKey}}{{{pixKey}}}{{/pixKey}}{{/pix_key}}{{/gift_pix_key}}
 {{/has_pix_key}}
 
 Com carinho,

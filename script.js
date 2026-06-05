@@ -826,7 +826,7 @@ async function sendGiftReservationEmail({ name, email, gift }) {
     const giftPrice = formatGiftPrice(getGiftField(giftSources, ['price', 'gift_price', 'giftPrice', 'value', 'valor'], '0'));
     const giftQrPath = getGiftField(giftSources, ['qrcodeImage', 'qrCodeImage', 'qr_code_image', 'gift_qr_url', 'qrCodeUrl', 'qrcodeUrl', 'qrUrl']);
     const giftQrUrl = getAbsoluteAssetUrl(giftQrPath);
-    const giftPixKey = getGiftField(giftSources, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']);
+    const giftPixKey = getGiftField(giftSources, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']) || (defaultGift ? getGiftField(defaultGift, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']) : '');
     const hasPixKey = Boolean(giftPixKey && String(giftPixKey).trim() !== '');
     
     console.log('[DEBUG] Gift ID:', giftId);
@@ -848,7 +848,7 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         has_pix_key: hasPixKey,
         // Compatibilidade: algumas templates/implementações podem usar variações do nome
         pix_key: giftPixKey,
-        pixKey: giftPixKey,
+        payment_pix_key: giftPixKey,
         // Valor não-escapado para templates que precisem mostrar exatamente o conteúdo
         gift_pix_key_unescaped: giftPixKey,
         couple_names: 'Priscila e Marconi',
