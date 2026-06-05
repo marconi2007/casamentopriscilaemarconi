@@ -827,10 +827,11 @@ async function sendGiftReservationEmail({ name, email, gift }) {
     const giftQrPath = getGiftField(giftSources, ['qrcodeImage', 'qrCodeImage', 'qr_code_image', 'gift_qr_url', 'qrCodeUrl', 'qrcodeUrl', 'qrUrl']);
     const giftQrUrl = getAbsoluteAssetUrl(giftQrPath);
     const giftPixKey = getGiftField(giftSources, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']) || (defaultGift ? getGiftField(defaultGift, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']) : '');
-    const hasPixKey = Boolean(giftPixKey && String(giftPixKey).trim() !== '');
+    const giftPixKeyDisplay = String(giftPixKey || '').trim();
+    const hasPixKey = Boolean(giftPixKeyDisplay);
     
     console.log('[DEBUG] Gift ID:', giftId);
-    console.log('[DEBUG] PIX Key extracted:', giftPixKey ? `${giftPixKey.substring(0, 30)}...` : 'NOT FOUND');
+    console.log('[DEBUG] PIX Key extracted:', giftPixKeyDisplay ? `${giftPixKeyDisplay.substring(0, 30)}...` : 'NOT FOUND');
     console.log('[DEBUG] Has PIX Key:', hasPixKey);
 
     const templateParams = {
@@ -844,13 +845,14 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         gift_price: giftPrice,
         gift_qr_url: giftQrUrl,
         qr_code_image: giftQrUrl,
-        gift_pix_key: giftPixKey,
-        has_pix_key: hasPixKey,
+        gift_pix_key: giftPixKeyDisplay,
+        pix_display_key: giftPixKeyDisplay,
+        has_pix_key: hasPixKey ? 'true' : '',
         // Compatibilidade: algumas templates/implementações podem usar variações do nome
-        pix_key: giftPixKey,
-        payment_pix_key: giftPixKey,
+        pix_key: giftPixKeyDisplay,
+        payment_pix_key: giftPixKeyDisplay,
         // Valor não-escapado para templates que precisem mostrar exatamente o conteúdo
-        gift_pix_key_unescaped: giftPixKey,
+        gift_pix_key_unescaped: giftPixKeyDisplay,
         couple_names: 'Priscila e Marconi',
         payment_instruction: 'Escaneie o QR Code para realizar o pagamento do presente reservado.',
         from_name: 'Priscila e Marconi',
