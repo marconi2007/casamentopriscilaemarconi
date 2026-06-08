@@ -1010,6 +1010,13 @@ footer {
     .pre-cover {
         padding: 1rem 0.9rem;
         justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    body.cover-active {
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .cover-actions {
