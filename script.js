@@ -605,7 +605,24 @@ document.querySelectorAll('.cover-button').forEach(button => {
 
         const cover = document.getElementById('cover');
         const targetTab = button.getAttribute('data-cover-tab');
+        const coverAction = button.getAttribute('data-cover-action');
         const tabs = document.getElementById('tabs');
+
+        if (coverAction === 'site') {
+            if (cover && !cover.classList.contains('cover-dismissed')) {
+                document.body.classList.remove('cover-active');
+                cover.classList.add('cover-hidden');
+                setTimeout(() => {
+                    cover.classList.add('cover-dismissed');
+                }, 600);
+            }
+
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 250);
+            return;
+        }
+
         if (!targetTab) {
             return;
         }

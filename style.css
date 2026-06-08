@@ -74,6 +74,18 @@ header p {
     text-shadow: none;
 }
 
+.header-welcome {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-top: 0.8rem;
+    margin-bottom: 0.25rem;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.22);
+    line-height: 1;
+    display: block;
+    letter-spacing: 0.02em;
+}
+
 section {
     padding: 4rem 2rem;
     max-width: 1200px;
@@ -278,6 +290,15 @@ section p,
     margin-bottom: 1.5rem;
 }
 
+.cover-welcome {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-top: 0.35rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+    font-weight: 600;
+}
+
 .cover-countdown {
     font-size: 1.2rem;
     color: #ffffff;
@@ -286,6 +307,24 @@ section p,
     line-height: 1.4;
 }
 
+.cover-about {
+    max-width: 46rem;
+    text-align: center;
+    color: var(--text-muted);
+    margin: 0 auto 1.5rem;
+    animation: fadeInUp 1.2s ease-out both;
+}
+
+.cover-about h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cover-about p {
+    margin: 0.65rem auto;
+    line-height: 1.7;
+}
 
 .cover-button {
     width: 13.5rem;
@@ -830,6 +869,11 @@ footer {
         font-size: 0.95rem;
     }
 
+    .header-welcome {
+        font-size: 1.4rem;
+        margin-top: 0.5rem;
+    }
+
     #hero {
         min-height: 58vh;
         height: auto;
@@ -926,6 +970,70 @@ footer {
         max-width: 100%;
     }
 
+    .cover-header {
+        max-width: 100%;
+    }
+
+    .cover-header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.65rem;
+    }
+
+    .cover-countdown {
+        font-size: 1rem;
+    }
+
+    .cover-about {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    .cover-about h2 {
+        font-size: 1.7rem;
+    }
+
+    .cover-about p {
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
+
+    .pre-cover {
+        padding: 1rem 0.9rem;
+        justify-content: flex-start;
+    }
+
+    .cover-actions {
+        align-items: stretch;
+    }
+
+    #photos-carousel {
+        padding: 2rem 1rem;
+    }
+
+    #photos-carousel h2 {
+        font-size: 2rem;
+    }
+
+    .carousel-container {
+        max-width: 100%;
+    }
+
+    #gift-list {
+        gap: 1rem;
+    }
+
+    .gift-item {
+        padding: 0.95rem;
+    }
+
+    .gift-item-image {
+        max-height: 220px;
+    }
+
+    footer {
+        padding: 1rem 0.75rem;
+    }
+
     .popup-card {
         width: min(100%, 100%);
         padding: 1.5rem;
@@ -965,5 +1073,66 @@ footer {
 
     .auth-actions {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.75rem;
+    }
+
+    .cover-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .cover-about h2 {
+        font-size: 1.45rem;
+    }
+
+    .cover-about p {
+        font-size: 0.92rem;
+    }
+
+    .cover-actions {
+        gap: 0.85rem;
+    }
+
+    .cover-button,
+    .cover-button-wide,
+    .tab-button,
+    button {
+        font-size: 0.95rem;
+        padding: 0.85rem 0.9rem;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    #photos-carousel {
+        padding: 1.5rem 0.8rem;
+    }
+
+    .carousel-indicators {
+        gap: 0.55rem;
+    }
+
+    .gift-item-image {
+        max-height: 180px;
+    }
+
+    .popup-close {
+        width: 1.8rem;
+        height: 1.8rem;
+        font-size: 1.2rem;
+    }
+
+    .popup-button {
+        min-width: auto;
+    }
+
+    .header-welcome {
+        font-size: 1.15rem;
+        margin-top: 0.4rem;
     }
 }
