@@ -35,13 +35,23 @@
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
+    min-height: 100vh;
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: var(--text-warm);
     background:
         linear-gradient(to bottom, #000000 0%, var(--black-bg) 54%, #111114 100%);
     overflow-x: hidden;
+}
+
+img, iframe, video {
+    max-width: 100%;
+    height: auto;
 }
 
 body.cover-active {
@@ -1004,6 +1014,23 @@ footer {
 
     .cover-actions {
         align-items: stretch;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    .cover-button,
+    .cover-button-wide {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .cover-header,
+    .cover-about {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 0.5rem;
     }
 
     #photos-carousel {
