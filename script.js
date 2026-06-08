@@ -862,6 +862,15 @@ function formatGiftPrice(price) {
     return rawPrice.toLowerCase().startsWith('r$') ? rawPrice : `R$ ${rawPrice}`;
 }
 
+function escapeEmailHtml(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 function getAbsoluteAssetUrl(assetPath) {
     const path = String(assetPath || '').trim();
 
@@ -903,6 +912,21 @@ async function sendGiftReservationEmail({ name, email, gift }) {
     const giftPixKey = getGiftField(giftSources, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']) || (defaultGift ? getGiftField(defaultGift, ['pixKey', 'gift_pix_key', 'pix_key', 'pix', 'pixCode', 'codigoPix']) : '');
     const giftPixKeyDisplay = String(giftPixKey || '').trim();
     const hasPixKey = Boolean(giftPixKeyDisplay);
+    const escapedGiftPixKey = escapeEmailHtml(giftPixKeyDisplay);
+    const pixSectionHtml = hasPixKey ? `
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width: 100%; margin-top: 18px;">
+                                <tr>
+                                    <td align="center" style="padding: 22px 20px; background: #f5f0f3; border: 2px dashed #efadc4; border-radius: 12px;">
+                                        <p style="margin: 0 0 12px; color: #983d5e; font-size: 14px; font-weight: bold;">
+                                            Chave PIX:
+                                        </p>
+                                        <p style="margin: 0; color: #4b1f30; font-size: 14px; font-family: 'Courier New', monospace; line-height: 1.6; word-break: break-word;">
+                                            ${escapedGiftPixKey}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>` : '';
+    const pixSectionText = hasPixKey ? `Chave PIX: ${giftPixKeyDisplay}` : '';
     
     console.log('[DEBUG] Gift ID:', giftId);
     console.log('[DEBUG] PIX Key extracted:', giftPixKeyDisplay ? `${giftPixKeyDisplay.substring(0, 30)}...` : 'NOT FOUND');
@@ -921,9 +945,14 @@ async function sendGiftReservationEmail({ name, email, gift }) {
         qr_code_image: giftQrUrl,
         gift_pix_key: giftPixKeyDisplay,
         pix_display_key: giftPixKeyDisplay,
-        has_pix_key: hasPixKey ? 'true' : '',
+        pix_section_html: pixSectionHtml,
+        pix_section: pixSectionHtml,
+        pix_section_text: pixSectionText,
+        has_pix_key: hasPixKey,
+        hasPixKey,
         // Compatibilidade: algumas templates/implementações podem usar variações do nome
         pix_key: giftPixKeyDisplay,
+        pix_code: giftPixKeyDisplay,
         payment_pix_key: giftPixKeyDisplay,
         // Valor não-escapado para templates que precisem mostrar exatamente o conteúdo
         gift_pix_key_unescaped: giftPixKeyDisplay,
