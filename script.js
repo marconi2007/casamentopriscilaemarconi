@@ -8,10 +8,21 @@ const firebaseConfig = {
     appId: "1:1078460802675:web:f95d0a4fc19c3799abac06"
 };
 
-// Inicializar Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Inicializar Firebase com proteção (se scripts externos não carregarem)
+let app = null;
+let auth = null;
+let db = null;
+try {
+    if (window.firebase && typeof firebase.initializeApp === 'function') {
+        app = firebase.initializeApp(firebaseConfig);
+        auth = firebase.auth();
+        db = firebase.firestore();
+    } else {
+        console.warn('Firebase não disponível; funcionalidades de backend desabilitadas.');
+    }
+} catch (err) {
+    console.error('Erro inicializando Firebase:', err);
+}
 
 const authPopup = document.getElementById('auth-popup');
 const authCard = authPopup.querySelector('.popup-card');
@@ -41,6 +52,45 @@ function playBackgroundMusic() {
 }
 
 window.addEventListener('load', playBackgroundMusic);
+
+// Prevenir que o usuário 'vaze' o site ao rolar/tocar quando a pré-capa estiver ativa
+function _preventTouchMove(e) {
+    if (document.body.classList.contains('cover-active')) {
+        e.preventDefault();
+    }
+}
+
+function _preventWheel(e) {
+    if (document.body.classList.contains('cover-active')) {
+        e.preventDefault();
+    }
+}
+
+function disableBodyScrollWhileCover() {
+    try {
+        document.addEventListener('touchmove', _preventTouchMove, { passive: false });
+        document.addEventListener('wheel', _preventWheel, { passive: false });
+    } catch (e) {
+        // alguns navegadores antigos podem não suportar opções de listener
+        document.addEventListener('touchmove', _preventTouchMove);
+        document.addEventListener('wheel', _preventWheel);
+    }
+}
+
+function enableBodyScrollWhileCover() {
+    try {
+        document.removeEventListener('touchmove', _preventTouchMove, { passive: false });
+        document.removeEventListener('wheel', _preventWheel, { passive: false });
+    } catch (e) {
+        document.removeEventListener('touchmove', _preventTouchMove);
+        document.removeEventListener('wheel', _preventWheel);
+    }
+}
+
+// Se a página iniciar com a capa ativa, bloqueia scroll no fundo
+if (document.body.classList.contains('cover-active')) {
+    disableBodyScrollWhileCover();
+}
 
 // Presentes padrão com imagens
 const defaultGifts = [
@@ -612,9 +662,10 @@ document.querySelectorAll('.cover-button').forEach(button => {
             if (cover && !cover.classList.contains('cover-dismissed')) {
                 document.body.classList.remove('cover-active');
                 cover.classList.add('cover-hidden');
-                setTimeout(() => {
+                cover.addEventListener('transitionend', () => {
                     cover.classList.add('cover-dismissed');
-                }, 600);
+                    try { enableBodyScrollWhileCover(); } catch (e) { /* ignore */ }
+                }, { once: true });
             }
 
             setTimeout(() => {
@@ -631,9 +682,10 @@ document.querySelectorAll('.cover-button').forEach(button => {
         if (cover && !cover.classList.contains('cover-dismissed')) {
             document.body.classList.remove('cover-active');
             cover.classList.add('cover-hidden');
-            setTimeout(() => {
+            cover.addEventListener('transitionend', () => {
                 cover.classList.add('cover-dismissed');
-            }, 600);
+                try { enableBodyScrollWhileCover(); } catch (e) { /* ignore */ }
+            }, { once: true });
         }
 
         setTimeout(() => {
@@ -900,6 +952,15 @@ async function loadGifts() {
     giftList.innerHTML = '<p>Carregando presentes...</p>';
 
     try {
+        if (!db) {
+            // Sem Firebase disponível: renderiza fallback com presentes padrões
+            giftList.innerHTML = '';
+            defaultGifts.forEach(gift => {
+                giftList.appendChild(createGiftItem(gift));
+            });
+            return;
+        }
+
         const [giftSnapshot, selectedSnapshot] = await Promise.all([
             db.collection('gifts').get(),
             db.collection('selectedGifts').get()
@@ -1019,6 +1080,11 @@ async function selectGift(giftId, selectedBy, selectedEmail, giftData) {
 
     if (!selectedEmailTrimmed) {
         alert('Digite seu email para reservar o presente.');
+        return;
+    }
+
+    if (!db) {
+        alert('Reserva de presentes indisponível no momento. Tente novamente mais tarde.');
         return;
     }
 
