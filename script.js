@@ -54,14 +54,19 @@ function playBackgroundMusic() {
 window.addEventListener('load', playBackgroundMusic);
 
 // Prevenir que o usuário 'vaze' o site ao rolar/tocar quando a pré-capa estiver ativa
+function _isInsideCover(target) {
+    const cover = document.getElementById('cover');
+    return Boolean(cover && target && cover.contains(target));
+}
+
 function _preventTouchMove(e) {
-    if (document.body.classList.contains('cover-active')) {
+    if (document.body.classList.contains('cover-active') && !_isInsideCover(e.target)) {
         e.preventDefault();
     }
 }
 
 function _preventWheel(e) {
-    if (document.body.classList.contains('cover-active')) {
+    if (document.body.classList.contains('cover-active') && !_isInsideCover(e.target)) {
         e.preventDefault();
     }
 }

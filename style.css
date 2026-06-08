@@ -56,6 +56,10 @@ img, iframe, video {
 
 body.cover-active {
     height: 100vh;
+    height: 100dvh;
+    position: fixed;
+    inset: 0;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -115,8 +119,11 @@ section p,
 
 .pre-cover {
     min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
     max-width: none;
-    padding: 3rem 2rem 2rem;
+    padding: calc(3rem + env(safe-area-inset-top)) 2rem calc(2rem + env(safe-area-inset-bottom));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,12 +131,20 @@ section p,
     position: fixed;
     inset: 0;
     z-index: 1000;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     background:
         linear-gradient(rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.78)),
         url('nos.jpeg') center center/cover no-repeat,
         linear-gradient(135deg, #000000, #141014);
     transition: opacity 0.55s ease, visibility 0.55s ease, transform 0.55s ease;
+}
+
+.pre-cover > * {
+    position: relative;
+    z-index: 1;
 }
 
 .secret-zone {
@@ -959,7 +974,7 @@ footer {
     }
 
     .pre-cover {
-        padding: 1.25rem;
+        padding: calc(1rem + env(safe-area-inset-top)) 0.9rem calc(1.25rem + env(safe-area-inset-bottom));
     }
 
     .pre-cover::after {
@@ -1008,15 +1023,11 @@ footer {
     }
 
     .pre-cover {
-        padding: 1rem 0.9rem;
         justify-content: flex-start;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
     }
 
     body.cover-active {
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
     }
 
     .cover-actions {
