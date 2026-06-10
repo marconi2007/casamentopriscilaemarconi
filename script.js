@@ -452,8 +452,11 @@ const emailjsConfig = {
     publicKey: "e_9h-QCHc2hp9EaBc",
     privateKey: "cF4elVHxiflv2AjwZtZlN",
     serviceId: "service_l5smfqp",
-    rsvpTemplateId: "template_4a4ndt6",
-    giftTemplateId: "template_h20b92e"
+    // Pelo que aparece na sua conta EmailJS:
+    // template_h20b92e = Contact Us (usado para confirmação de presença)
+    // template_4a4ndt6 = Presente Confirmacao (usado para reserva de presente)
+    rsvpTemplateId: "template_h20b92e",
+    giftTemplateId: "template_4a4ndt6"
 };
 
 function isEmailJsReady() {
