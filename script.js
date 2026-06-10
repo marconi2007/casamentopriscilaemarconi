@@ -12,6 +12,7 @@ const firebaseConfig = {
 let app = null;
 let auth = null;
 let db = null;
+console.log('script.js v20260610-1 carregado');
 try {
     if (window.firebase && typeof firebase.initializeApp === 'function') {
         app = firebase.initializeApp(firebaseConfig);
