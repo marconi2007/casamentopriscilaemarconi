@@ -485,6 +485,8 @@ if (window.emailjs && emailjsConfig.publicKey && emailjsConfig.publicKey !== 'SE
     logEmailJsStatus('Inicialização');
 }
 
+validateEmailJsTemplates();
+
 function openAuthModal() {
     authError.textContent = '';
     authForm.reset();
@@ -817,7 +819,13 @@ async function sendConfirmationEmail({ name, email, attending, guests, guestName
         return false;
     }
 
+    if (emailjsConfig.rsvpTemplateId === emailjsConfig.giftTemplateId) {
+        console.warn('[EmailJS] RSVP e reserva de presente compartilham o mesmo template. Isso pode enviar o e-mail errado.');
+    }
+
     const attendingText = attending === 'yes' ? 'Sim, vou comparecer' : 'Não vou poder comparecer';
+
+    console.log('[EmailJS] Enviando confirmação de presença com template:', emailjsConfig.rsvpTemplateId);
 
     return sendEmailFlow(emailjsConfig.rsvpTemplateId, {
         subject: `Confirmação de presença - ${name}`,
