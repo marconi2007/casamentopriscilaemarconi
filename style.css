@@ -558,6 +558,18 @@ button:active {
     margin-top: 2rem;
 }
 
+.gift-installment-note {
+    margin: 1rem 0 0;
+    font-size: 0.95rem;
+    color: #f8f8f8;
+    line-height: 1.6;
+}
+
+.gift-installment-note a {
+    color: var(--pink);
+    text-decoration: underline;
+}
+
 .gift-item {
     background: var(--black-card);
     padding: 1rem;
