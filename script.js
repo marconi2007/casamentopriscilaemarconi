@@ -485,6 +485,16 @@ if (window.emailjs && emailjsConfig.publicKey && emailjsConfig.publicKey !== 'SE
     logEmailJsStatus('Inicialização');
 }
 
+function validateEmailJsTemplates() {
+    if (!emailjsConfig.rsvpTemplateId || !emailjsConfig.giftTemplateId) {
+        console.warn('[EmailJS] Template de RSVP ou de reserva de presente não está configurado.');
+    }
+
+    if (emailjsConfig.rsvpTemplateId === emailjsConfig.giftTemplateId) {
+        console.warn('[EmailJS] RSVP e reserva de presente estão usando o mesmo template. Separe os IDs para evitar envios errados.');
+    }
+}
+
 validateEmailJsTemplates();
 
 function openAuthModal() {
