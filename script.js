@@ -477,6 +477,10 @@ function getEmailJsOptions() {
 function logEmailJsStatus(label) {
     if (isEmailJsReady()) {
         console.log(`[EmailJS] ${label} pronto.`, emailjsConfig);
+        console.log('[EmailJS] IDs de template ativos:', {
+            rsvpTemplateId: emailjsConfig.rsvpTemplateId,
+            giftTemplateId: emailjsConfig.giftTemplateId
+        });
     } else {
         console.warn(`[EmailJS] ${label} não está disponível. Verifique a configuração do EmailJS.`);
     }
