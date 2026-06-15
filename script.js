@@ -566,7 +566,11 @@ async function loadAdminData() {
         adminGiftList.innerHTML = selectedSnapshot.docs.length
             ? selectedSnapshot.docs.map(doc => {
                 const item = doc.data();
-                const giftLabel = giftNames[item.giftId] || item.giftId || 'Presente reservado';
+                const rawGiftLabel = giftNames[item.giftId] || item.giftId || 'Presente reservado';
+                const giftLabel = String(rawGiftLabel)
+                    .replace(/[-_.]+/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
                 const emailDisplay = item.selectedEmail ? ` (${item.selectedEmail})` : '';
                 return `<li><span><strong>${giftLabel}</strong></span><span>${item.selectedBy || 'Anônimo'}${emailDisplay}</span></li>`;
             }).join('')

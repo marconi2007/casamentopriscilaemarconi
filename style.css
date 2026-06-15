@@ -226,11 +226,14 @@ section p,
 .admin-card li small,
 .admin-card li span {
     min-width: 0;
+    white-space: normal;
 }
 
 .admin-card li strong {
     display: block;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
+    word-break: normal;
+    max-width: 100%;
 }
 
 .admin-card li small {
