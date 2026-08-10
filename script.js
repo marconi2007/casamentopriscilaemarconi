@@ -38,6 +38,9 @@ const authCancelButton = document.getElementById('auth-cancel');
 const authCloseButton = authPopup.querySelector('.popup-close');
 const giftQrcodePopup = document.getElementById('gift-qrcode-popup');
 const giftQrcodeCloseButton = document.getElementById('gift-qrcode-close');
+const giftPixCopyContainer = document.getElementById('gift-pix-copy');
+const giftPixKeyInput = document.getElementById('gift-pix-key');
+const giftPixCopyButton = document.getElementById('gift-pix-copy-button');
 const backgroundMusic = document.getElementById('background-music');
 
 function playBackgroundMusic() {
@@ -443,6 +446,54 @@ const defaultGifts = [
         image: 'Fotos/toalhadebanho.jpeg',
         pixKey: '00020126570014br.gov.bcb.pix0114+55319838789910217Toalhas de banho 5204000053039865406200.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026052514322063150300017br.gov.bcb.brcode01051.0.0630459AE',
         qrcodeImage: 'Fotos/qrcodetoalhadebanho.jpeg'
+    },
+    {
+        id: 'travesseiros',
+        name: 'Travesseiros',
+        price: '200',
+        image: 'Fotos/Travesseiros.jpeg',
+        qrcodeImage: 'Fotos/qrcodeTravesseiros.jpeg',
+        pixKey: '00020126530014br.gov.bcb.pix0114+55319838789910213Travesseiros 5204000053039865406200.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026081011290918050300017br.gov.bcb.brcode01051.0.06304D29C'
+    },
+    {
+        id: 'aspirador-de-po',
+        name: 'Aspirador de pó',
+        price: '229',
+        image: 'Fotos/Aspiradordepo.jpeg',
+        qrcodeImage: 'Fotos/qrcodeAspiradordepo.jpeg',
+        pixKey: '00020126560014br.gov.bcb.pix0114+55319838789910216Aspirador de po 5204000053039865406229.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026081011314298850300017br.gov.bcb.brcode01051.0.06304FE65'
+    },
+    {
+        id: 'grill-eletrico',
+        name: 'Grill elétrico',
+        price: '200',
+        image: 'Fotos/Grileletrico.jpeg',
+        qrcodeImage: 'Fotos/qrcodeGrileletrico.jpeg',
+        pixKey: '00020126560014br.gov.bcb.pix0114+55319838789910216Grill  eletrico 5204000053039865406200.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026081011335908750300017br.gov.bcb.brcode01051.0.06304C47E'
+    },
+    {
+        id: 'potes-hermeticos',
+        name: 'Potes herméticos',
+        price: '150',
+        image: 'Fotos/Poteshermeticos.jpeg',
+        qrcodeImage: 'Fotos/qrcodePoteshermeticos.jpeg',
+        pixKey: '00020126570014br.gov.bcb.pix0114+55319838789910217Potes hermeticos 5204000053039865406150.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026081011352157150300017br.gov.bcb.brcode01051.0.0630476C4'
+    },
+    {
+        id: 'fondue',
+        name: 'Fondue',
+        price: '260',
+        image: 'Fotos/Fondue.jpeg',
+        qrcodeImage: 'Fotos/qrcodeFondue.jpeg',
+        pixKey: '00020126460014br.gov.bcb.pix0114+55319838789910206Fondue5204000053039865406260.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026081011364052650300017br.gov.bcb.brcode01051.0.0630417CC'
+    },
+    {
+        id: 'jarra-de-suco-com-tacas',
+        name: 'Jarra de suco com taças',
+        price: '180',
+        image: 'Fotos/Jarradesucocomtacas.jpeg',
+        qrcodeImage: 'Fotos/qrcodeJarradesucocomtacas.jpeg',
+        pixKey: '00020126640014br.gov.bcb.pix0114+55319838789910224Jarra de suco com tacas 5204000053039865406180.005802BR5923PRISCILA CANAZART SILVA6014BELO HORIZONTE62580520SAN2026081011404885750300017br.gov.bcb.brcode01051.0.063047A0C'
     }
 ];
 
@@ -664,6 +715,34 @@ function closeGiftQrCodePopup() {
 document.querySelectorAll('#gift-qrcode-popup .popup-close, #gift-qrcode-close').forEach(button => {
     button.addEventListener('click', closeGiftQrCodePopup);
 });
+
+if (giftPixCopyButton) {
+    giftPixCopyButton.addEventListener('click', async () => {
+        const pixValue = String(giftPixKeyInput?.value || '').trim();
+
+        if (!pixValue) {
+            return;
+        }
+
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(pixValue);
+            } else {
+                giftPixKeyInput.focus();
+                giftPixKeyInput.select();
+                document.execCommand('copy');
+            }
+
+            const originalText = giftPixCopyButton.textContent;
+            giftPixCopyButton.textContent = 'Copiado!';
+            setTimeout(() => {
+                giftPixCopyButton.textContent = originalText;
+            }, 1600);
+        } catch (error) {
+            console.error('Erro ao copiar PIX:', error);
+        }
+    });
+}
 
 giftQrcodePopup.addEventListener('click', (event) => {
     if (event.target.id === 'gift-qrcode-popup') {
@@ -1217,6 +1296,10 @@ function showGiftQrCode(giftData, selectedBy, selectedEmail) {
         const imageElement = document.getElementById('gift-qrcode-image');
         const qrcodePopup = document.getElementById('gift-qrcode-popup');
         const qrcodeError = document.getElementById('gift-qrcode-error');
+        const instructionElement = document.getElementById('gift-qrcode-instruction');
+        const pixContainer = document.getElementById('gift-pix-copy');
+        const pixTextarea = document.getElementById('gift-pix-key');
+        const pixValue = String(giftData.pixKey || '').trim();
         
         messageElement.textContent = `Presente "${giftData.name}" reservado por ${selectedBy}!`;
         
@@ -1229,10 +1312,25 @@ function showGiftQrCode(giftData, selectedBy, selectedEmail) {
             imageElement.src = encodeURI(giftData.qrcodeImage);
             imageElement.alt = `QR Code do ${giftData.name}`;
             imageElement.style.display = 'block';
+            if (instructionElement) {
+                instructionElement.textContent = 'Escaneie o QR code para realizar o pagamento';
+            }
         } else {
             console.warn('Nenhuma imagem de QR code definida para:', giftData.name);
+            imageElement.src = '';
             imageElement.style.display = 'none';
-            if (qrcodeError) qrcodeError.style.display = 'block';
+            if (qrcodeError) {
+                qrcodeError.textContent = pixValue ? 'QR code não disponível. Use a chave PIX abaixo.' : 'Imagem do QR code não encontrada';
+                qrcodeError.style.display = 'block';
+            }
+            if (instructionElement) {
+                instructionElement.textContent = pixValue ? 'Copie a chave PIX para realizar o pagamento' : 'QR code não disponível para este presente';
+            }
+        }
+
+        if (pixContainer && pixTextarea) {
+            pixTextarea.value = pixValue;
+            pixContainer.hidden = !pixValue;
         }
         
         qrcodePopup.classList.add('active');
