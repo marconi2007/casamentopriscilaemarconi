@@ -380,6 +380,33 @@ section p,
         inset 0 1px 1px rgba(255, 255, 255, 0.44);
 }
 
+.photos-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13.5rem;
+    min-height: 3rem;
+    margin-top: 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.72);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.48),
+        inset 0 1px 1px rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    transition: box-shadow 0.2s ease;
+}
+
+.photos-cta-button:hover {
+    box-shadow:
+        0 0 34px rgba(249, 215, 227, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.44);
+}
+
 #hero {
     background: url('nos.jpeg') no-repeat center center/cover;
     height: 82vh;
